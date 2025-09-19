@@ -1,4 +1,4 @@
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, ipcMain } from "electron";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
@@ -14,11 +14,16 @@ function createMainWindow() {
   win = new BrowserWindow({
     icon: path.join(VITE_PUBLIC, "electron-vite.svg"),
     show: false,
+    frame: false,
     webPreferences: {
       preload: __preloadpath,
       contextIsolation: true,
       nodeIntegration: false
-    }
+    },
+    minWidth: 800,
+    minHeight: 600,
+    height: 600,
+    width: 800
   });
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
@@ -42,8 +47,30 @@ function registerAppEvents() {
     }
   });
 }
+function WindowController() {
+  let win2;
+  ipcMain.on("window-minimize", () => {
+    win2 = BrowserWindow.getFocusedWindow();
+    if (win2) win2.minimize();
+  });
+  ipcMain.on("window-toggle-maximize", () => {
+    win2 = BrowserWindow.getFocusedWindow();
+    if (win2) {
+      if (win2.isMaximized()) {
+        win2.unmaximize();
+      } else {
+        win2.maximize();
+      }
+    }
+  });
+  ipcMain.on("window-close", () => {
+    win2 = BrowserWindow.getFocusedWindow();
+    if (win2) win2.close();
+  });
+}
 function init() {
   registerAppEvents();
+  WindowController();
   app.whenReady().then(() => {
     createMainWindow();
   }).catch((e) => {

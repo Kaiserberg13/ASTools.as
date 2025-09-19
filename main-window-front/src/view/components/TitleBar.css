@@ -1,0 +1,42 @@
+.title-bar {
+ 	-webkit-app-region: drag;
+    display: flex;
+}
+
+.title-bar .spaser {
+ 	flex: 1;
+}
+
+.title-bar button {
+    -webkit-app-region: no-drag;
+    border: none;
+    background: none;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.title-bar button svg {
+    fill: black;
+}
+
+.title-bar button:hover {
+    background: gray;
+}
+.title-bar button.close:hover {
+    background: red;
+}
+
+.title-bar .title-label{
+    display: flex;
+    padding: 0 12px;
+    align-content: center;
+    color: var(--text-color); 
+}
+.title-bar .title-label p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    align-self: center;
+}

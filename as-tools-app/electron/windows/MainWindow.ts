@@ -8,11 +8,16 @@ export function createMainWindow() {
     win = new BrowserWindow({
         icon: path.join(VITE_PUBLIC, 'electron-vite.svg'),
         show: false,
+        frame: false,
         webPreferences: {
           preload: __preloadpath,
           contextIsolation: true,
           nodeIntegration: false
         },
+        minWidth: 800,
+        minHeight: 600,
+        height: 600,
+        width: 800
     });
 
     win.webContents.on('did-finish-load', () => {

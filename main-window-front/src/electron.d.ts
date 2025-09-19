@@ -7,6 +7,6 @@ declare global {
             off: typeof import('electron').ipcRenderer.off;
             send: typeof import('electron').ipcRenderer.send;
             invoke: typeof import('electron').ipcRenderer.invoke;
-        }
+        },
     }
 }

@@ -1,0 +1,96 @@
+@import './../theme.css';
+
+.sidebar-panel {
+    max-width: 72px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    gap: 12px;
+}
+.sidebar-panel .folders-panel{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+}
+.sidebar-panel .folders-panel::-webkit-scrollbar{
+    display: none;
+    width: 0;
+}
+
+.sidebar-panel .other-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+}
+
+.sidebar-panel .item{
+    position: relative;
+    min-height: 64px;
+    width: 64px;
+    border-radius: 8px;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-panel .item:hover{
+    background: var(--item-color-hover);
+}
+.sidebar-panel .item:focus{
+    background: var(--item-color-pressed);
+}
+.sidebar-panel .item.active {
+    background: var(--item-color-active);
+}
+
+.sidebar-panel .item .folder-name{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar-panel .item .indicator{
+    position: absolute;
+    left: 0;
+    top: 18px;
+    bottom: 18px;
+    width: 4px;
+    border-radius: 2px;
+    background: none;
+}
+.sidebar-panel .item.active .indicator{
+    background: var(--active-color);
+}
+
+.sidebar-panel .item .folder-name svg{
+    fill: var(--text-color-description);
+}
+.sidebar-panel .item.active .folder-name svg{
+    fill: var(--active-color);
+}
+
+.sidebar-panel .item .folder-name p{
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    fill: var(--text-color-description);
+}
+.sidebar-panel .item.active .folder-name p{
+    display: none;
+}
+.sidebar-panel .other-panel button{
+    min-height: 64px;
+    width: 64px;
+    border-radius: 8px;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-panel .other-panel button p{
+    padding: 0;
+    font-size: 12px;
+    margin: 0;
+}

@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FolderModel } from '../../models/FolderModel';
 import './Folder.css';
+import { useFolderState } from '../../controllers/FolderState';
 
 interface FolderPageProps {
   folderModel: FolderModel;
 }
 
 const FolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
-    const [selectedTag, setSelectedTag] = useState<number>(0);
-    const [viewTools, setViewTools] = useState<boolean>(true);
+    const { selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(folderModel)
+
+    useEffect(() => {
+        if(selectedTag === 0) return
+        const filtered = folderModel.Tools.filter(tool =>
+            tool.Tags.includes(folderModel.Filters[selectedTag-1])
+        );
+        console.log(filtered);
+    }, [selectedTag])
 
     return (
         <div className='folder-page'>
@@ -31,28 +39,21 @@ const FolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
             <div className="tags">
                 <p className={`tag ${selectedTag === 0 ? 'active' : ''}`} onClick={() => setSelectedTag(0)}>all</p>
                 {
-                    folderModel.Filters.map((tag, index) => {
-                        if(index+1 === selectedTag){
-                            return (
-                                <p className="tag active">{tag}</p>
-                            )
-                        }
-                        return (
-                            <p className="tag" onClick={() => setSelectedTag(index + 1)}>{tag}</p>
-                        )
-                    })
+                    folderModel.Filters.map((tag, index) => (
+                        <p className={`tag ${index === selectedTag-1 ? 'active' : ''}`} key={index} onClick={() => setSelectedTag(index + 1)}>{tag}</p>
+                    ))
                 }
             </div>
             <div className="tools">
                 {viewTools ? 
-                    folderModel.Tools.map((tool) => (
-                        <div className='tool-card-mini'>
+                    filterdTools.map((tool, index) => (
+                        <div className='tool-card-mini' key={index}>
                             <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
                             <p>{tool.Name}</p>
                         </div>
                     )) :
-                    folderModel.Tools.map((tool) => (
-                        <div className='tool-card-big'>
+                    filterdTools.map((tool, index) => (
+                        <div className='tool-card-big' key={index}>
                             <div className="tool-info">
                                 <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
                                 <div className="text">

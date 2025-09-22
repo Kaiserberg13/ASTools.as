@@ -3,6 +3,6 @@ export interface ToolModel {
     Tags: string[];
     Description: string;
     Autor: string;
-    Icon: ImageBitmap;
-    Cover: ImageBitmap;
+    IconUrl: string;
+    CoverUrl: string;
 }

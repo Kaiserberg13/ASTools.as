@@ -1,1 +1,115 @@
 @import './../theme.css';
+
+.folder-page{
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.folder-page .folder-name{
+    display: flex;
+    align-items: center;
+}
+.folder-page .folder-name h4{
+    flex: 1;
+}
+
+.folder-page .folder-name .view-switch{
+    display: flex;
+    align-content: center;
+    border: var(--outline-color) 1px solid;
+    padding: 0 4px;
+    border-radius: 100px;
+}
+.folder-page .folder-name .switch-item{
+    cursor: pointer;
+    padding: 4px 12px;
+}
+.folder-page .folder-name .switch-item.active{
+    fill: var(--active-color);
+}
+
+.folder-page .tags{
+    padding: 16px 0;
+    display: flex;
+    gap: 8px;
+}
+
+.folder-page .tag{
+    padding: 4px 16px;
+    border-radius: 100px;
+    border: var(--outline-color) 1px solid;
+    font-size: 14px;
+    cursor: pointer;
+}
+.folder-page .tag.active{
+    border: var(--active-color) 1px solid;
+    color: var(--active-color);
+}
+
+.folder-page .tools{
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.folder-page .tool-card-big {
+    width: 370px;
+    background-color: var(--background-color-block);
+    border: var(--outline-color) 1px solid;
+    border-radius: 8px;
+    padding: 16px;
+}
+.folder-page .tool-card-big .cover{
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    border: var(--outline-color) 1px solid;
+    object-fit: cover;
+}
+.folder-page .tool-card-big .tool-info{
+    display: flex;
+    gap: 12px;
+    padding-bottom: 12px;
+}
+.folder-page .tool-card-big .tool-info img{
+    aspect-ratio: 1/1;
+    width: 56px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.folder-page .tool-card-big .tool-info .text{
+    flex: 1;
+}
+.folder-page .tool-card-big .tool-info .text p{
+    color: var(--text-color-description);
+}
+.folder-page .tool-card-big .tool-description{
+    color: var(--text-color-description);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+}
+
+.folder-page .tool-card-mini {
+    width: 140px;
+    height: 92px;
+    background-color: var(--background-color-block);
+    border: var(--outline-color) 1px solid;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.folder-page .tool-card-mini img{
+    aspect-ratio: 1/1;
+    width: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+    padding-bottom: 8px;
+}

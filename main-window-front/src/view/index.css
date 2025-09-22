@@ -41,6 +41,10 @@ button:disabled {
     cursor: not-allowed;
 }
 
+svg {
+    fill: var(--text-color-primary);
+}
+
 input {
     border: var(--outline-color) 1px solid;
     border-radius: 4px;
@@ -57,4 +61,53 @@ input:focus {
 }
 input::placeholder {
     color: var(--text-color-description);
+}
+
+p{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: var(--text-color-primary);
+}
+h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color-primary);
+}
+h5 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color-primary);
+}
+h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color-primary);
+}
+h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-color-primary);
+}
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-color-primary);
+}
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-color-primary);
 }

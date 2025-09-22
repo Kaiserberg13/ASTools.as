@@ -1,4 +1,4 @@
-import { BrowserWindow, app, ipcMain } from "electron";
+import { BrowserWindow, app, ipcMain, protocol } from "electron";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
@@ -72,6 +72,15 @@ function init() {
   registerAppEvents();
   WindowController();
   app.whenReady().then(() => {
+    protocol.registerFileProtocol("save-file", (request, callback) => {
+      const filePath = request.url.replace(`save-file://`, "");
+      try {
+        callback(decodeURIComponent(filePath));
+      } catch (error) {
+        console.error("Protocol error:", error);
+        callback({ error: -6 });
+      }
+    });
     createMainWindow();
   }).catch((e) => {
     console.error("Failed to create window:", e);

@@ -3,7 +3,7 @@
     --background-color-page: #F9F9F9;
     --background-color-block: #FFFFFF;
 
-    --outline-color: #474747;
+    --outline-color: rgba(0,0,0,0.09);
     
     --text-color-primary: #1A1A1A;
     --text-color-description: #5F5F5F;
@@ -24,7 +24,7 @@
     --error-color: #C42B1C;
 }
 
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
     :root{
         --background-color-panel: #161616;
         --background-color-page: #0B0B0B;
@@ -50,4 +50,4 @@
         --active-color: #005FB8;
         --error-color: #C42B1C;
     }
-}
+}*/

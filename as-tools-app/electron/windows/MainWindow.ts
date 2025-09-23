@@ -1,7 +1,9 @@
 import { BrowserWindow } from "electron";
 import path from "node:path";
 import { __preloadpath, VITE_PUBLIC, RENDERER_DIST, VITE_DEV_SERVER_URL, MAIN_WINDOW_DEV_URL } from "../constains";
+import Store from 'electron-store';
 
+const store = new Store();
 export let winMain: BrowserWindow | null = null;
 
 export function createMainWindow() {
@@ -20,8 +22,10 @@ export function createMainWindow() {
         width: 800
     });
 
+    const currentTheme = (store.get("theme") as 'light' | 'dark') || 'light';
+
     winMain.webContents.on('did-finish-load', () => {
-        winMain?.webContents.send('main-process-message', (new Date).toLocaleString());
+        winMain?.webContents.send('update-theme', currentTheme);
         winMain?.show();
     });
 

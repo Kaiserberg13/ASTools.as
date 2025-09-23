@@ -11,7 +11,7 @@ const SidebarSettings: React.FC = () => {
     return (
         <div className="sidebar-panel-settings">
             <Link to="/settings/" className={isActive('') ? 'active' : ''}>General</Link>
-            <Link to="/settings/theme" className={isActive('theme') ? 'active' : ''}>Theme</Link>
+            <Link to="/settings/theme" className={isActive('theme') ? 'active' : ''}>Theme</Link>   
         </div>
     )
 }

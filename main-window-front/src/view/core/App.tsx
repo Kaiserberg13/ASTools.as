@@ -1,11 +1,14 @@
-import './App.css'
-import { HashRouter, Route, Routes } from 'react-router-dom'
-import MainWindow from '../main/MainWindow'
-import SettingsWindow from '../settings/SettingsWindow'
-import FolderPage from '../main/pages/Folder'
-import type { FolderModel } from '../../models/FolderModel'
-import GeneralSettingsPage from '../settings/pages/GeneralPage'
-import ThemeSettingsPage from '../settings/pages/ThemePage'
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+
+import MainWindow from '../main/MainWindow';
+import FolderPage from '../main/pages/Folder';
+import type { FolderModel } from '../../models/FolderModel';
+
+import SettingsWindow from '../settings/SettingsWindow';
+import GeneralSettingsPage from '../settings/pages/GeneralPage';
+import ThemeSettingsPage from '../settings/pages/ThemePage';
+import { ThemeProvider } from './ThemeContext';
 
 const homePage:FolderModel = {
   Label: "Main",
@@ -26,19 +29,19 @@ const homePage:FolderModel = {
 function App() {
 
   return (
-    <>
+    <ThemeProvider>
       <HashRouter>
-          <Routes>
-            <Route path='/*' element={<MainWindow/>}>
-              <Route index element={<FolderPage folderModel={homePage} />} />
-            </Route>
-            <Route path='/settings/*' element={<SettingsWindow/>}>
-              <Route index element={<GeneralSettingsPage/>} />
-              <Route path='theme' element={<ThemeSettingsPage />} />
-            </Route>
-          </Routes>
+        <Routes>
+          <Route path='/*' element={<MainWindow/>}>
+            <Route index element={<FolderPage folderModel={homePage} />} />
+          </Route>
+          <Route path='/settings/*' element={<SettingsWindow/>}>
+            <Route index element={<GeneralSettingsPage/>} />
+            <Route path='theme' element={<ThemeSettingsPage />} />
+          </Route>
+        </Routes>
       </HashRouter>
-    </>
+    </ThemeProvider>
   )
 }
 

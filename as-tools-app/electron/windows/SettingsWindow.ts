@@ -1,7 +1,9 @@
 import { BrowserWindow } from "electron";
 import path from "node:path";
 import { __preloadpath, VITE_PUBLIC, RENDERER_DIST, VITE_DEV_SERVER_URL, SETTINGS_WINDOW_DEV_URL } from "../constains";
+import Store from 'electron-store';
 
+const store = new Store();
 export let winSettings: BrowserWindow | null = null;
 
 export function createSettingsWindow() {
@@ -21,8 +23,10 @@ export function createSettingsWindow() {
         width: 800
     });
 
+    const currentTheme = (store.get("theme") as 'light' | 'dark') || 'light';
+
     winSettings.webContents.on('did-finish-load', () => {
-        winSettings?.webContents.send('main-process-message', (new Date).toLocaleString());
+        winSettings?.webContents.send('update-theme', currentTheme);
         winSettings?.show();
     });
 

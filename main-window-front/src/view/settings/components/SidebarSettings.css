@@ -1,0 +1,23 @@
+@import './../../theme.css';
+
+.sidebar-panel-settings{
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.sidebar-panel-settings a {
+    color: var(--text-color-primary);
+    text-decoration: none;
+    padding: 6px 12px;
+    width: 125px;
+    border-radius: 4px;
+}
+.sidebar-panel-settings a:hover {
+    background-color: var(--item-color-hover);
+}
+.sidebar-panel-settings a.active {
+    background-color: var(--item-color-active);
+}

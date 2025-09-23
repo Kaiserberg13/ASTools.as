@@ -75,6 +75,7 @@ function createSettingsWindow() {
     icon: path.join(VITE_PUBLIC, "electron-vite.svg"),
     show: false,
     frame: false,
+    title: "settings",
     webPreferences: {
       preload: __preloadpath,
       contextIsolation: true,
@@ -95,7 +96,7 @@ function createSettingsWindow() {
   if (VITE_DEV_SERVER_URL) {
     winSettings.loadURL(SETTINGS_WINDOW_DEV_URL);
   } else {
-    winSettings.loadFile(path.join(RENDERER_DIST, "MainWindow/index.html#/settings"));
+    winSettings.loadFile(`file://${RENDERER_DIST}/MainWindow/index.html#/settings`);
   }
 }
 function createWindowController() {

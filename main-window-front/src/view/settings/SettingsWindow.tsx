@@ -1,7 +1,7 @@
 import TitleBar from '../window/components/TitleBar'
-import GeneralSettingsPage from './pages/GeneralPage'
+import SidebarSettings from './components/SidebarSettings'
 import './SettingsWindow.css'
-import { Route, Routes } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 function SettingsWindow() {
 
@@ -9,10 +9,9 @@ function SettingsWindow() {
     <>
       <TitleBar searchEnabled={false} appTitle='Settings'/>
       <div className="view">
+        <SidebarSettings />
         <main>
-        <Routes>
-            <Route path='/' element={<GeneralSettingsPage/>}/>
-        </Routes>
+          <Outlet />
         </main>
       </div>
     </>

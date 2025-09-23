@@ -1,0 +1,16 @@
+@import './../theme.css';
+
+.view {
+    flex: 1;
+    display: flex;
+    overflow-y: auto;
+}
+
+main {
+    background: var(--background-color-page);
+    border-top-left-radius: 8px;
+    border-left: var(--outline-color) 1px solid;
+    border-top: var(--outline-color) 1px solid;
+    flex: 1;
+    overflow-y: auto;
+}

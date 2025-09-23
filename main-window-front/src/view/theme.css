@@ -3,7 +3,7 @@
     --background-color-page: #F9F9F9;
     --background-color-block: #FFFFFF;
 
-    --outline-color: rgba(0,0,0,0.09);
+    --outline-color: #DDDDDD;
     
     --text-color-primary: #1A1A1A;
     --text-color-description: #5F5F5F;
@@ -24,30 +24,30 @@
     --error-color: #C42B1C;
 }
 
-/*@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
     :root{
-        --background-color-panel: #161616;
-        --background-color-page: #0B0B0B;
-        --background-color-block: #151515;
+        --background-color-panel: #0C0C0C;
+        --background-color-page: #060606;
+        --background-color-block: #131313;
 
-        --outline-color: #6d6d6d;
+        --outline-color: #222222;
         
         --text-color-primary: #E5E5E5;
-        --text-color-description: #BEBEBE;
+        --text-color-description: #A0A0A0;
 
-        --item-color-primary: #151515;
-        --item-color-hover: #262626;
-        --item-color-pressed: #333333;
-        --item-color-disabled: #585858;
-        --item-color-active: #070707;
+        --item-color-primary: #0C0C0C;
+        --item-color-hover: #191919;
+        --item-color-pressed: #222222;
+        --item-color-disabled: #414141;
+        --item-color-active: #020202;
 
-        --logo-color-g-start: #166BBD;
-        --logo-color-g-end: #062A4D;
+        --logo-color-g-start: #047BEE;
+        --logo-color-g-end: #90C8FF;
         --logo-g-direction: to bottom;
 
         --text-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-        --active-color: #005FB8;
-        --error-color: #C42B1C;
+        --active-color: #47A6FF;
+        --error-color: #E34A3B;
     }
-}*/
+}

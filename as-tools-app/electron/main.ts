@@ -2,11 +2,13 @@ import { registerAppEvents } from "./events/appEvents";
 import { app, protocol } from 'electron';
 import { createMainWindow } from "./windows/MainWindow";
 import { WindowController } from "./ipc_controllers/windowController";
+import { createWindowController } from "./ipc_controllers/createWindowController";
 
 function init(){
   registerAppEvents();
 
   WindowController();
+  createWindowController();
 
   app.whenReady().then(() => {
     protocol.registerFileProtocol('save-file', (request, callback) => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import type { FolderModel } from '../../models/FolderModel';
+import type { FolderModel } from '../../../models/FolderModel';
 import './Folder.css';
-import { useFolderState } from '../../controllers/FolderState';
+import { useFolderState } from '../../../controllers/FolderState';
 
 interface FolderPageProps {
   folderModel: FolderModel;

@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "src/ICP/electron.d.ts"]
+  "include": ["src", "src/electron.d.ts"]
 }

@@ -13,11 +13,12 @@
     text-decoration: none;
     padding: 6px 12px;
     width: 125px;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 .sidebar-panel-settings a:hover {
     background-color: var(--item-color-hover);
 }
 .sidebar-panel-settings a.active {
     background-color: var(--item-color-active);
+    border: var(--outline-color) 1px solid;
 }

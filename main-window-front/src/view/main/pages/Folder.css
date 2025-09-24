@@ -93,6 +93,8 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 12px;
 }
 
 .folder-page .tool-card-mini {

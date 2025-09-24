@@ -2,10 +2,17 @@
 
 .settings-page {
     padding: 20px;
+    overflow-y: auto;
 }
 
 .settings-page h3 {
     padding-bottom: 12px;
+}
+
+.settings-page h5 {
+    padding-bottom: 6px;
+    padding-top: 12px;
+    padding-left: 8px;
 }
 
 .settings-page .blok {
@@ -14,8 +21,28 @@
     border-radius: 12px;
     padding: 8px;
     display: flex;
-    flex-direction: column;
     gap: 8px;
+    margin-bottom: 6px;
+    align-items: center;
+}
+.settings-page .blok.column {
+    flex-direction: column;
+    align-items:normal;
+}
+.settings-page .blok .info {
+    flex: 1;
+}
+.settings-page .blok .info h6 {
+    margin-bottom: 2px;
+}
+.settings-page .blok .info p {
+    color: var(--text-color-description);
+    font-size: 14px;
+}
+.settings-page .blok .info .control {
+    display: flex;
+    gap:8px;
+    align-self: center;
 }
 
 .settings-page .blok .control{
@@ -37,7 +64,15 @@
     display: flex;
     gap: 2px;
 }
+.settings-page .blok .control .switcher.disabled{
+    background: var(--item-color-disabled);
+}
 .settings-page .blok .control .switcher button:disabled{
+    background: var(--item-color-disabled);
+    color: var(--text-color-primary);
+    cursor: not-allowed;
+}
+.settings-page .blok .control .switcher button.active{
     background: var(--active-color);
     color: var(--text-color-on-accent);
     cursor: default;

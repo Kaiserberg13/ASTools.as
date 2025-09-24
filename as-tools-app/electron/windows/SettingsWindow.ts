@@ -24,9 +24,11 @@ export function createSettingsWindow() {
     });
 
     const currentTheme = (store.get("theme") as 'light' | 'dark') || 'light';
+    const currentPalette = (store.get("palette") as string) || "default";
 
     winSettings.webContents.on('did-finish-load', () => {
         winSettings?.webContents.send('update-theme', currentTheme);
+        winSettings?.webContents.send('update-palette', currentPalette);
         winSettings?.show();
     });
 

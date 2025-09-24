@@ -23,9 +23,11 @@ export function createMainWindow() {
     });
 
     const currentTheme = (store.get("theme") as 'light' | 'dark') || 'light';
+    const currentPalette = (store.get("palette") as string) || "default";
 
     winMain.webContents.on('did-finish-load', () => {
         winMain?.webContents.send('update-theme', currentTheme);
+        winMain?.webContents.send('update-palette', currentPalette);
         winMain?.show();
     });
 

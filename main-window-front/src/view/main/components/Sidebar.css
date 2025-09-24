@@ -83,12 +83,19 @@
     display: none;
 }
 .sidebar-panel .other-panel button{
+    background: none;
     min-height: 64px;
     width: 64px;
     border-radius: 8px;
     padding: 0;
     margin: 0;
     color: var(--text-color-description);
+}
+.sidebar-panel .other-panel button:hover{
+    background: var(--item-color-hover);
+}
+.sidebar-panel .other-panel button:active{
+    background: var(--item-color-pressed);
 }
 .sidebar-panel .other-panel button svg{
     fill: var(--text-color-description);

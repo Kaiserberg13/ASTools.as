@@ -20,19 +20,25 @@ function init(){
     return 'light';
   });
 
+  ipcMain.handle('get-palette', async () => {
+    const saved = store.get('palette');
+    if (typeof saved === 'string') return saved;
+    return 'default';
+  });
+
   app.whenReady().then(() => {
     protocol.registerFileProtocol('save-file', (request, callback) => {
       const filePath = request.url.replace(`save-file://`, '');
       try {
-        callback(decodeURIComponent(filePath)); // Возвращаем путь к файлу
+        callback(decodeURIComponent(filePath));
       } catch (error) {
         console.error('Protocol error:', error);
-        callback({ error: -6 }); // FILE_NOT_FOUND
+        callback({ error: -6 });
       }
     })
     createMainWindow();
 
-    ipcMain.on('set-theme', (event, newTheme: 'light' | 'dark') => {
+    ipcMain.on('set-theme', (_, newTheme: 'light' | 'dark') => {
       store.set("theme", newTheme);
 
       BrowserWindow.getAllWindows().forEach(win => {
@@ -40,6 +46,13 @@ function init(){
       });
     });
 
+    ipcMain.on('set-palette', (_, newPalette: string) => {
+      store.set('palette', newPalette);
+      
+      BrowserWindow.getAllWindows().forEach(win => {
+        win.webContents.send('update-palette', newPalette);
+      });
+    })
   }).catch((e) => {
     console.error('Failed to create window:', e);
   })

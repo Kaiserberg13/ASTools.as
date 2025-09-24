@@ -11,7 +11,11 @@ function SettingsWindow() {
       <div className="view">
         <SidebarSettings />
         <main>
-          <Outlet />
+          <div className="shadow-img">
+            <div className="fixed-content">
+              <Outlet />
+            </div>
+          </div>
         </main>
       </div>
     </>

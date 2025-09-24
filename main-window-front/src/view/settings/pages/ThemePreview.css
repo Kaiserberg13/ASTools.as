@@ -1,4 +1,4 @@
-.theme-preview.light{
+.theme-preview.default.light{
     --background-color-panel: #F3F3F3;
     --background-color-page: #F9F9F9;
     --background-color-block: #FFFFFF;
@@ -24,8 +24,7 @@
     --active-color: #005FB8;
     --error-color: #C42B1C;
 }
-
-.theme-preview.dark {
+.theme-preview.default.dark {
     --background-color-panel: #0C0C0C;
     --background-color-page: #060606;
     --background-color-block: #131313;
@@ -50,6 +49,148 @@
 
     --active-color: #47A6FF;
     --error-color: #E34A3B;
+}
+
+.theme-preview.a-launcher.light {
+    --background-color-panel: #FFFFFF;
+    --background-color-page: #E2E2EA;
+    --background-color-block: #EDEDED;
+
+    --outline-color: #D5D5DC;
+    
+    --text-color-primary: #181819;
+    --text-color-description: #666666;
+    --text-color-on-accent: #FFFFFF;
+
+    --item-color-primary: #FFFFFF;
+    --item-color-hover: #E6E6E6;
+    --item-color-pressed: #DDDDDD;
+    --item-color-disabled: #BEBEBE;
+    --item-color-active: #FDFDFD;
+
+    --logo-color-g-start: #1188FB;
+    --logo-color-g-end: #00386F;
+    --logo-g-direction: to bottom;
+
+    --text-family: 'Inter' sans-serif;
+
+    --active-color: #0062FF;
+    --error-color: #DA4137;
+}
+.theme-preview.a-launcher.dark {
+    --background-color-panel: #000000;
+    --background-color-page: #121217;
+    --background-color-block: #000000;
+
+    --outline-color: #202025;
+    
+    --text-color-primary: #FFFFFF;
+    --text-color-description: #70707C;
+    --text-color-on-accent: #FFFFFF;
+
+    --item-color-primary: #000000;
+    --item-color-hover: #191919;
+    --item-color-pressed: #222222;
+    --item-color-disabled: #414141;
+    --item-color-active: #020202;
+
+    --logo-color-g-start: #1188FB;
+    --logo-color-g-end: #00386F;
+    --logo-g-direction: to bottom;
+
+    --text-family: 'Inter' sans-serif;
+
+    --active-color: #4900FF;
+    --error-color: #FD4438;
+}
+
+.theme-preview.omori {
+    --background-color-panel: #051A31;
+    --background-color-page: url("./../../../assets/img/Sunny.png");
+    --background-color-block: #243B71;
+
+    --outline-color: #10263B;
+    
+    --filter-opacity: 0.5;
+    
+    --text-color-primary: #AFDCE8;
+    --text-color-description: #C0DCE9;
+    --text-color-on-accent: #A0A0A0;
+
+    --item-color-primary: #243B71;
+    --item-color-hover: #2A478C;
+    --item-color-pressed: #1D2F59;
+    --item-color-disabled: #051A31;
+    --item-color-active: #152B62;
+
+    --logo-color-g-start: #52ABFA;
+    --logo-color-g-end: #4593D9;
+    --logo-g-direction: to bottom;
+
+    --text-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --active-color: #66B1F4;
+    --error-color: #F46668;
+}
+.theme-preview.omori.dark {
+    --background-color-panel: #12161E;
+    --background-color-page: url("./../../..//assets/img/Omori.png");
+    --background-color-block: #11112C;
+
+    --outline-color: #1B2028;
+    
+    --filter-opacity: 0.5;
+    
+    --text-color-primary: #ACABD7;
+    --text-color-description: #9FA9C3;
+    --text-color-on-accent: #A0A0A0;
+
+    --item-color-primary: #11112C;
+    --item-color-hover: #1B1B43;
+    --item-color-pressed: #0C0C1F;
+    --item-color-disabled: #0C0C1F;
+    --item-color-active: #11112B;
+
+    --logo-color-g-start: #605DD2;
+    --logo-color-g-end: #504CCF;
+    --logo-g-direction: to bottom;
+
+    --text-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --active-color: #6865CE;
+    --error-color: #CE6567;
+}
+
+.theme-preview.columbina {
+    --background-color-panel: #1A1417;
+    --background-color-page: url("./../../../assets/img/Columbina.png");
+    --background-color-block: #352B30;
+
+    --outline-color: #43383E;
+    
+    --filter-opacity: 0.5;
+    
+    --text-color-primary: #DFBEC5;
+    --text-color-description: #CDC9CA;
+    --text-color-on-accent: #A0A0A0;
+
+    --item-color-primary: #352B30;
+    --item-color-hover: #49313D;
+    --item-color-pressed: #3B1E2C;
+    --item-color-disabled: #271F23;
+    --item-color-active: #030202;
+
+    --logo-color-g-start: #B8293F;
+    --logo-color-g-end: #832432;
+    --logo-g-direction: to bottom;
+
+    --text-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    --active-color: #AA3B4C;
+    --error-color: #D34043;
 }
 
 .theme-preview {
@@ -151,9 +292,19 @@
 .theme-preview .content .main-content{
     flex: 1;
     background: var(--background-color-page);
+    background-size: cover;
+    background-position: center;
     border-top-left-radius: 8px;
     border-left: var(--outline-color) 1px solid;
     border-top: var(--outline-color) 1px solid;
+}
+.theme-preview .content .main-content .shadow-img-prev {
+    height: 100%;
+    background: rgba(0,0,0,var(--filter-opacity));
+    overflow-y: auto;
+}
+.theme-preview .content .main-content .shadow-img-prev .fixed-content-prev{
+    overflow-y: auto;
     padding: 16px;
     display: flex;
     flex-direction: column;

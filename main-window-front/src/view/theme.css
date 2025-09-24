@@ -7,6 +7,7 @@
     
     --text-color-primary: #1A1A1A;
     --text-color-description: #5F5F5F;
+    --text-color-on-accent: #E5E5E5;
 
     --item-color-primary: #F3F3F3;
     --item-color-hover: #E6E6E6;
@@ -24,34 +25,6 @@
     --error-color: #C42B1C;
 }
 
-/*@media (prefers-color-scheme: dark) {
-    :root{
-        --background-color-panel: #0C0C0C;
-        --background-color-page: #060606;
-        --background-color-block: #131313;
-
-        --outline-color: #222222;
-        
-        --text-color-primary: #E5E5E5;
-        --text-color-description: #A0A0A0;
-
-        --item-color-primary: #0C0C0C;
-        --item-color-hover: #191919;
-        --item-color-pressed: #222222;
-        --item-color-disabled: #414141;
-        --item-color-active: #020202;
-
-        --logo-color-g-start: #047BEE;
-        --logo-color-g-end: #90C8FF;
-        --logo-g-direction: to bottom;
-
-        --text-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-        --active-color: #47A6FF;
-        --error-color: #E34A3B;
-    }
-}*/
-
 html.dark {
     --background-color-panel: #0C0C0C;
     --background-color-page: #060606;
@@ -61,6 +34,7 @@ html.dark {
     
     --text-color-primary: #E5E5E5;
     --text-color-description: #A0A0A0;
+    --text-color-on-accent: #1A1A1A;
 
     --item-color-primary: #0C0C0C;
     --item-color-hover: #191919;

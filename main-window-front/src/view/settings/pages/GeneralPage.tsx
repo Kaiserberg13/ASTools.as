@@ -2,7 +2,9 @@ import './SettingsStyle.css';
 
 const GeneralSettingsPage: React.FC = () => {
     return (
-        <h1>Settings General</h1>
+        <div className="settings-page">
+            <h3>General</h3>
+        </div>
     )
 }
 

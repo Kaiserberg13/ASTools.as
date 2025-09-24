@@ -29,6 +29,16 @@ export const ThemeProvider: React.FC<{children: ReactNode}> = ({children}) => {
                 document.documentElement.classList.toggle('dark', saved === 'dark');
             }
         });
+
+        const handleUpdate = (_event: any, newTheme: 'light' | 'dark') => {
+            setTheme(newTheme);
+            document.documentElement.classList.toggle('dark', newTheme === 'dark');
+        };
+
+        window.ipcRenderer.on('update-theme', handleUpdate);
+        return () => {
+            window.ipcRenderer.off('update-theme', handleUpdate);
+        };
     }, []);
 
     return (

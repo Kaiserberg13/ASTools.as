@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FolderModel } from '../../../models/FolderModel';
 import './Folder.css';
 import { useFolderState } from '../../../controllers/FolderState';
+import type { ToolModel } from '../../../models/ToolViewModel';
 
 interface FolderPageProps {
   folderModel: FolderModel;
@@ -9,6 +10,36 @@ interface FolderPageProps {
 
 const FolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
     const { selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(folderModel)
+
+    const [menuVisible, setMenuVisible] = useState<boolean>(false);
+    const [menuPos, setMenuPos] = useState({x: 0, y:0});
+    const [menuTool, setMenuTool] = useState<ToolModel | null>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent | globalThis.MouseEvent) => {
+            if(menuVisible && menuRef.current && !(e.target instanceof Node && menuRef.current.contains(e.target))){
+                setMenuVisible(false);
+            }
+        }
+
+        window.addEventListener('mousedown', handleClickOutside as any);
+        return () => {
+            window.removeEventListener('mousedown', handleClickOutside as any);
+        }
+    }, [menuVisible]);
+
+    const handleOptionClick = (option: string) => {
+        console.log('Option:', option, "for tool:", menuTool);
+        setMenuVisible(false);
+    }
+
+    const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>, tool: ToolModel) => {
+        e.preventDefault();
+        setMenuTool(tool);
+        setMenuPos({ x: e.clientX, y: e.clientY});
+        setMenuVisible(true);
+    }
 
     useEffect(() => {
         if(selectedTag === 0) return
@@ -47,13 +78,13 @@ const FolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
             <div className="tools">
                 {viewTools ? 
                     filterdTools.map((tool, index) => (
-                        <div className='tool-card-mini' key={index}>
+                        <div className='tool-card-mini' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>
                             <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
                             <p>{tool.Name}</p>
                         </div>
                     )) :
                     filterdTools.map((tool, index) => (
-                        <div className='tool-card-big' key={index}>
+                        <div className='tool-card-big' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>
                             <div className="tool-info">
                                 <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
                                 <div className="text">
@@ -68,6 +99,23 @@ const FolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
                         </div>
                     ))
                 }
+                {menuVisible && (
+                    <div
+                        className="custom-context-menu"
+                        ref={menuRef}
+                        style={{
+                            position: 'absolute',
+                            top: menuPos.y,
+                            left: menuPos.x,
+                        }}
+                    >
+                        <button onClick={() => handleOptionClick('Run')}>Run</button>
+                        <button onClick={() => handleOptionClick('Details')}>Details</button>
+                        <hr />
+                        <button onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
+                        <button onClick={() => handleOptionClick('MoveToFolder')}>Move to folder</button>
+                    </div>
+                )}
             </div>
         </div>
     )

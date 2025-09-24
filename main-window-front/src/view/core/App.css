@@ -7,7 +7,6 @@
 }
 
 main {
-    position: relative;
     background: var(--background-color-page);
     background-size: cover;
     background-position: center;

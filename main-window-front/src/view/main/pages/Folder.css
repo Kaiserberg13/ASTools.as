@@ -115,3 +115,22 @@
     border-radius: 4px;
     padding-bottom: 8px;
 }
+.folder-page .custom-context-menu{
+    z-index: 2;
+    background: var(--item-color-primary);
+    border: var(--outline-color) 1px solid;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 50, 0.3) 0 2px 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    gap: 2px;
+}
+.folder-page .custom-context-menu button{
+    text-align: left;
+    font-size: 14px;
+}
+.folder-page .custom-context-menu hr{
+    margin: 0;
+    border: var(--outline-color) solid 1px;
+}

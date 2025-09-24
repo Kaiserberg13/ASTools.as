@@ -37,6 +37,6 @@ export function createSettingsWindow() {
     if (VITE_DEV_SERVER_URL) {
         winSettings.loadURL(SETTINGS_WINDOW_DEV_URL);
     } else {
-        winSettings.loadFile(`file://${RENDERER_DIST}/MainWindow/index.html#/settings`);
+        winSettings.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
     }
 }

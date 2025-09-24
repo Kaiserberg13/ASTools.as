@@ -32,6 +32,6 @@ export function createMainWindow() {
     if (VITE_DEV_SERVER_URL) {
         winMain.loadURL(MAIN_WINDOW_DEV_URL);
     } else {
-        winMain.loadFile(path.join(RENDERER_DIST, "MainWindow/index.html"));
+        winMain.loadFile(path.join(RENDERER_DIST, "index.html"));
     }
 }

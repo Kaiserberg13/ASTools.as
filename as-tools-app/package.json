@@ -3,6 +3,34 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "build": {
+    "productName": "AS Tools",
+    "appId": "com.aperture.tools",
+    "directories": {
+      "output": "release"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Task Nexus"
+    },
+    "extraFiles": [
+      {
+        "from": "./public/Tools",
+        "to": "Tools",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "./public/Theme",
+        "to": "Theme",
+        "filter": ["**/*"]
+      }
+    ]
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",

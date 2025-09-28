@@ -9,7 +9,7 @@ import SettingsWindow from '../settings/SettingsWindow';
 import GeneralSettingsPage from '../settings/pages/GeneralPage';
 import ThemeSettingsPage from '../settings/pages/ThemePage';
 import { ThemeProvider } from './ThemeContext';
-import { DevWindow } from '../devWin/devWindow';
+import { DevWindow } from '../devWin/ForDevWindow.tsx';
 
 const homePage:FolderModel = {
   Label: "Main",

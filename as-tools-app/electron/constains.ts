@@ -4,10 +4,11 @@ import { fileURLToPath } from 'node:url';
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 export const __approot = path.join(__dirname, '..');
+export const __appdir = path.join(__dirname, '../../..');
 export const __preloadpath = path.join(__dirname, "preload.mjs");
 
-export const tool_dir = path.join(__approot, "Tools");
-export const theme_dir = path.join(__approot, "Theme");
+export const tool_dir = path.join(__appdir, "Tools");
+export const theme_dir = path.join(__appdir, "Themes");
 
 export const MAIN_WINDOW_DEV_URL = "http://localhost:3000/";
 export const SETTINGS_WINDOW_DEV_URL = "http://localhost:3000/#/settings";

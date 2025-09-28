@@ -12,15 +12,18 @@ const __filename$1 = fileURLToPath(import.meta.url);
 const __dirname = path$6.dirname(__filename$1);
 const __approot = path$6.join(__dirname, "..");
 const __preloadpath = path$6.join(__dirname, "preload.mjs");
-path$6.join(__approot, "Tools");
-path$6.join(__approot, "Theme");
+const tool_dir = path$6.join(__approot, "Tools");
+const theme_dir = path$6.join(__approot, "Theme");
 const MAIN_WINDOW_DEV_URL = "http://localhost:3000/";
 const SETTINGS_WINDOW_DEV_URL = "http://localhost:3000/#/settings";
+const TOOL_WINDOW_DEV_URL = "http://localhost:3000/#/tool";
+const DEV_WINDOW_DEV_URL = "http://localhost:3000/#/dev";
+const CREATE_FOLDER_WINDOW_DEV_URL = "http://localhost:3000/#/add-folder";
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 const RENDERER_DIST = path$6.join(__approot, "dist");
 const VITE_PUBLIC = VITE_DEV_SERVER_URL ? path$6.join(__approot, "public") : RENDERER_DIST;
-path$6.join(VITE_PUBLIC, "Tools");
-path$6.join(VITE_PUBLIC, "Theme");
+const TOOL_DIR_DEV_PATH = path$6.join(VITE_PUBLIC, "Tools");
+const THEME_DIR_DEV_PATH = path$6.join(VITE_PUBLIC, "Theme");
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -14894,7 +14897,7 @@ class ElectronStore extends Conf {
 }
 var electronStore = ElectronStore;
 const Store = /* @__PURE__ */ getDefaultExportFromCjs(electronStore);
-const store$2 = new Store();
+const store$3 = new Store();
 let winMain = null;
 function createMainWindow() {
   winMain = new BrowserWindow({
@@ -14911,8 +14914,8 @@ function createMainWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$2.get("theme") || "light";
-  const currentPalette = store$2.get("palette") || "default";
+  const currentTheme = store$3.get("theme") || "light";
+  const currentPalette = store$3.get("palette") || "default";
   winMain.webContents.on("did-finish-load", () => {
     winMain == null ? void 0 : winMain.webContents.send("update-theme", currentTheme);
     winMain == null ? void 0 : winMain.webContents.send("update-palette", currentPalette);
@@ -14957,7 +14960,7 @@ function WindowController() {
     if (win) win.close();
   });
 }
-const store$1 = new Store();
+const store$2 = new Store();
 let winSettings = null;
 function createSettingsWindow() {
   winSettings = new BrowserWindow({
@@ -14975,8 +14978,8 @@ function createSettingsWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$1.get("theme") || "light";
-  const currentPalette = store$1.get("palette") || "default";
+  const currentTheme = store$2.get("theme") || "light";
+  const currentPalette = store$2.get("palette") || "default";
   winSettings.webContents.on("did-finish-load", () => {
     winSettings == null ? void 0 : winSettings.webContents.send("update-theme", currentTheme);
     winSettings == null ? void 0 : winSettings.webContents.send("update-palette", currentPalette);
@@ -14991,12 +14994,74 @@ function createSettingsWindow() {
     winSettings.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
+const store$1 = new Store();
+let winDev = null;
+function createDevWindow() {
+  winDev = new BrowserWindow({
+    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    show: false,
+    frame: false,
+    title: "dev",
+    webPreferences: {
+      preload: __preloadpath,
+      contextIsolation: true,
+      nodeIntegration: false
+    },
+    minWidth: 800,
+    minHeight: 600,
+    height: 600,
+    width: 800
+  });
+  const currentTheme = store$1.get("theme") || "light";
+  const currentPalette = store$1.get("palette") || "default";
+  winDev.webContents.on("did-finish-load", () => {
+    winDev == null ? void 0 : winDev.webContents.send("update-theme", currentTheme);
+    winDev == null ? void 0 : winDev.webContents.send("update-palette", currentPalette);
+    winDev == null ? void 0 : winDev.show();
+  });
+  winDev.on("closed", () => {
+    winDev = null;
+  });
+  ipcMain$1.handle("get-constains", () => {
+    const devView = {
+      __filename: __filename$1,
+      __dirname,
+      __approot,
+      __preloadpath,
+      tool_dir,
+      theme_dir,
+      MAIN_WINDOW_DEV_URL,
+      SETTINGS_WINDOW_DEV_URL,
+      TOOL_WINDOW_DEV_URL,
+      DEV_WINDOW_DEV_URL,
+      CREATE_FOLDER_WINDOW_DEV_URL,
+      VITE_DEV_SERVER_URL,
+      RENDERER_DIST,
+      VITE_PUBLIC,
+      TOOL_DIR_DEV_PATH,
+      THEME_DIR_DEV_PATH
+    };
+    return devView;
+  });
+  if (VITE_DEV_SERVER_URL) {
+    winDev.loadURL(DEV_WINDOW_DEV_URL);
+  } else {
+    winDev.loadURL(`file://${RENDERER_DIST}/index.html#/dev`);
+  }
+}
 function createWindowController() {
   ipcMain$1.on("open-settings-window", () => {
     if (winSettings == null ? void 0 : winSettings.isClosable) {
       winSettings.focus();
     } else {
       createSettingsWindow();
+    }
+  });
+  ipcMain$1.on("open-dev-window", () => {
+    if (winDev == null ? void 0 : winDev.isClosable) {
+      winDev.focus();
+    } else {
+      createDevWindow();
     }
   });
 }

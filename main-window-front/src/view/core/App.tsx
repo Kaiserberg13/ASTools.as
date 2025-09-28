@@ -9,6 +9,7 @@ import SettingsWindow from '../settings/SettingsWindow';
 import GeneralSettingsPage from '../settings/pages/GeneralPage';
 import ThemeSettingsPage from '../settings/pages/ThemePage';
 import { ThemeProvider } from './ThemeContext';
+import { DevWindow } from '../devWin/devWindow';
 
 const homePage:FolderModel = {
   Label: "Main",
@@ -39,6 +40,7 @@ function App() {
             <Route index element={<GeneralSettingsPage/>} />
             <Route path='theme' element={<ThemeSettingsPage />} />
           </Route>
+          <Route path='/dev' element={<DevWindow />} />
         </Routes>
       </HashRouter>
     </ThemeProvider>

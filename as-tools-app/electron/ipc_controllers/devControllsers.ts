@@ -17,9 +17,12 @@ import {
     TOOL_DIR_DEV_PATH,
     THEME_DIR_DEV_PATH
 } from "../constains";
+import Store from 'electron-store';
 
-export function devController() {
-    ipcMain.on('get-constains', () => {
+const store = new Store();
+
+export function devControllers() {
+    ipcMain.handle('get-constains', () => {
         const devView = {
             __filename: __filename,
             __dirname: __dirname,
@@ -43,5 +46,9 @@ export function devController() {
             THEME_DIR_DEV_PATH: THEME_DIR_DEV_PATH
         };
         return devView;
+    })
+
+    ipcMain.handle('get-store', () => {
+        return store.store;
     })
 }

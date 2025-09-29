@@ -1,17 +1,20 @@
+import type { FolderModel } from '../../../models/FolderModel';
 import './Folder.css';
-import { getFolderBySlug, useFolderState } from '../../../controllers/FolderState';
+import { useFolderState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
-import { useParams } from 'react-router-dom';
 
-const FolderPage: React.FC = ()  => {
-    const { slug } = useParams<{slug: string}>();
-    const { filters ,selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolderBySlug(slug as string));
+interface FolderPageProps {
+  folderModel: FolderModel;
+}
+
+const MainFolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
+    const { selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(folderModel);
     const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
 
     return (
         <div className='folder-page'>
             <div className="folder-name">
-                <h4>{slug}</h4>
+                <h4>{folderModel.Label}</h4>
                 <div className='view-switch'>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`switch-item ${!viewTools ? 'active' : ''}`} onClick={() => setViewTools(false)}>
                         <path d="M4 19.3333C4 18.9651 4.29848 18.6667 4.66667 18.6667H19.3333C19.7015 18.6667 20 18.9651 20 19.3333C20 19.7015 19.7015 20 19.3333 20H4.66667C4.29848 20 4 19.7015 4 19.3333Z"/>
@@ -24,11 +27,12 @@ const FolderPage: React.FC = ()  => {
                         <path fillRule="evenodd" clipRule="evenodd" d="M8.78571 3C9.85083 3 10.7143 3.86345 10.7143 4.92857V8.78571C10.7143 9.85083 9.85083 10.7143 8.78571 10.7143H4.92857C3.86345 10.7143 3 9.85083 3 8.78571V4.92857C3 3.86345 3.86345 3 4.92857 3H8.78571ZM4.92857 4.28571C4.57353 4.28571 4.28571 4.57353 4.28571 4.92857V8.78571C4.28571 9.14075 4.57353 9.42857 4.92857 9.42857H8.78571C9.14075 9.42857 9.42857 9.14075 9.42857 8.78571V4.92857C9.42857 4.57353 9.14075 4.28571 8.78571 4.28571H4.92857Z"/>
                     </svg>
                 </div>
+                
             </div>
             <div className="tags">
                 <p className={`tag ${selectedTag === 0 ? 'active' : ''}`} onClick={() => setSelectedTag(0)}>all</p>
                 {
-                    filters.map((tag, index) => (
+                    folderModel.Filters.map((tag, index) => (
                         <p className={`tag ${index === selectedTag-1 ? 'active' : ''}`} key={index} onClick={() => setSelectedTag(index + 1)}>{tag}</p>
                     ))
                 }
@@ -79,4 +83,4 @@ const FolderPage: React.FC = ()  => {
     )
 }
 
-export default FolderPage;
+export default MainFolderPage;

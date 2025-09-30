@@ -1,20 +1,23 @@
 import type { FolderModel } from '../../../models/FolderModel';
 import './Folder.css';
-import { useFolderState } from '../../../controllers/FolderState';
+import { useFolderMainState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
 
 interface FolderPageProps {
   folderModel: FolderModel;
 }
 
-const MainFolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
-    const { selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(folderModel);
+const MainFolderPage: React.FC<FolderPageProps> = ()  => {
+    const { selectedTag, viewTools, loading, error, filters, filterdTools, setSelectedTag, setViewTools} = useFolderMainState();
     const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+
+    if (loading) return <div>Загрузка инструментов...</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <div className='folder-page'>
             <div className="folder-name">
-                <h4>{folderModel.Label}</h4>
+                <h4>Main</h4>
                 <div className='view-switch'>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`switch-item ${!viewTools ? 'active' : ''}`} onClick={() => setViewTools(false)}>
                         <path d="M4 19.3333C4 18.9651 4.29848 18.6667 4.66667 18.6667H19.3333C19.7015 18.6667 20 18.9651 20 19.3333C20 19.7015 19.7015 20 19.3333 20H4.66667C4.29848 20 4 19.7015 4 19.3333Z"/>
@@ -32,7 +35,7 @@ const MainFolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
             <div className="tags">
                 <p className={`tag ${selectedTag === 0 ? 'active' : ''}`} onClick={() => setSelectedTag(0)}>all</p>
                 {
-                    folderModel.Filters.map((tag, index) => (
+                    filters.map((tag, index) => (
                         <p className={`tag ${index === selectedTag-1 ? 'active' : ''}`} key={index} onClick={() => setSelectedTag(index + 1)}>{tag}</p>
                     ))
                 }
@@ -41,14 +44,14 @@ const MainFolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
                 {viewTools ? 
                     filterdTools.map((tool, index) => (
                         <div className='tool-card-mini' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>
-                            <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
+                            <img src={`save-file://${tool.IconUrl}`} alt={`${tool.Name} icon`} loading="lazy"/>
                             <p>{tool.Name}</p>
                         </div>
                     )) :
                     filterdTools.map((tool, index) => (
                         <div className='tool-card-big' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>
                             <div className="tool-info">
-                                <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
+                                <img src={`save-file://${tool.IconUrl}`} alt={`${tool.Name} icon`} loading="lazy"/>
                                 <div className="text">
                                     <h6>{tool.Name}</h6>
                                     <p>{tool.Autor} | {tool.Tags.join(',')}</p>
@@ -57,7 +60,7 @@ const MainFolderPage: React.FC<FolderPageProps> = ({folderModel})  => {
                             <p className="tool-description">
                                 {tool.Description}
                             </p>
-                            <img className='cover' src={tool.CoverUrl} alt={tool.Name} />
+                            <img className='cover' src={`save-file://${tool.CoverUrl}`} alt={`${tool.Name} cover`} />
                         </div>
                     ))
                 }

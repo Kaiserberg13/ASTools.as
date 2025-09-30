@@ -7,6 +7,7 @@ import themeController from "./ipc_controllers/themeController";
 import { programmDirsController } from "./ipc_controllers/dirsController";
 import { devControllers } from "./ipc_controllers/devControllsers";
 import { initProgrammDirs } from "./data/intilizationProgrammDirs";
+import { toolsController } from "./ipc_controllers/toolsController";
 
 
 function init(){
@@ -17,6 +18,7 @@ function init(){
   themeController();
   programmDirsController();
   devControllers();
+  toolsController();
 
   app.whenReady().then(() => {
     protocol.registerFileProtocol('save-file', (request, callback) => {

@@ -13,6 +13,7 @@ import { DevWindow } from '../devWin/ForDevWindow.tsx';
 import MainFolderPage from '../main/pages/MainPage.tsx';
 import { DevConstains } from '../devWin/pages/DevConstains.tsx';
 import { DevStore } from '../devWin/pages/DevStore.tsx';
+import { DevAllTools } from '../devWin/pages/DevAllTools.tsx';
 
 const homePage:FolderModel = {
   Label: "Main",
@@ -20,6 +21,7 @@ const homePage:FolderModel = {
   CurrentFilter: 0,
   Tools: [
     {
+      Id: "Video to spirte sheet",
       Name: "Video to spirte sheet",
       Tags: ["Video"],
       Autor: "Default",
@@ -47,6 +49,7 @@ function App() {
           <Route path='/dev/*' element={<DevWindow />} >
             <Route index element={<DevConstains />} />
             <Route path='store' element={<DevStore />} />
+            <Route path='all-tools' element={<DevAllTools />} />
           </Route>
         </Routes>
       </HashRouter>

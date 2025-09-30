@@ -16,10 +16,10 @@ export function createMainWindow() {
           contextIsolation: true,
           nodeIntegration: false
         },
-        minWidth: 800,
-        minHeight: 600,
-        height: 600,
-        width: 800
+        minWidth: 985,
+        minHeight: 700,
+        height: 700,
+        width: 985
     });
 
     const currentTheme = (store.get("theme") as 'light' | 'dark') || 'light';

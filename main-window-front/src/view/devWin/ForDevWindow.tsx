@@ -10,6 +10,7 @@ export const DevWindow = () => {
                 <div className="sidebar-panel-settings">
                     <Link to='/dev'>Constains</Link>
                     <Link to='/dev/store'>Store data</Link>
+                    <Link to='/dev/all-tools'>All tools</Link>
                 </div>
                 <main>
                     <div className="shadow-img">

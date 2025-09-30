@@ -2,7 +2,9 @@ import { ipcMain } from "electron";
 import { createSettingsWindow, winSettings } from "../windows/SettingsWindow";
 import { createDevWindow, winDev } from "../windows/DevWindow";
 import { createAddFoldersWindow, winAddFolder } from "../windows/AddFolderWindow";
+import Store from 'electron-store';
 
+const store = new Store();
 export function createWindowController() {
     ipcMain.on('open-settings-window', () => {
         if(winSettings?.isClosable) {
@@ -26,5 +28,9 @@ export function createWindowController() {
         } else {
             createAddFoldersWindow();
         }
+    })
+
+    ipcMain.on('open-store-data-editor', () => {
+        store.openInEditor();
     })
 }

@@ -1,17 +1,19 @@
 import './Folder.css';
-import { getFolderBySlug, useFolderState } from '../../../controllers/FolderState';
+import { useFolderState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
 import { useParams } from 'react-router-dom';
+import { FoldersContext } from '../../../controllers/FoldersController';
 
 const FolderPage: React.FC = ()  => {
-    const { slug } = useParams<{slug: string}>();
-    const { filters ,selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolderBySlug(slug as string));
+    const { name } = useParams<{name: string}>();
+    const { getFolder } = FoldersContext();
+    const { filters, selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolder(name as string));
     const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
 
     return (
         <div className='folder-page'>
             <div className="folder-name">
-                <h4>{slug}</h4>
+                <h4>{name}</h4>
                 <div className='view-switch'>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`switch-item ${!viewTools ? 'active' : ''}`} onClick={() => setViewTools(false)}>
                         <path d="M4 19.3333C4 18.9651 4.29848 18.6667 4.66667 18.6667H19.3333C19.7015 18.6667 20 18.9651 20 19.3333C20 19.7015 19.7015 20 19.3333 20H4.66667C4.29848 20 4 19.7015 4 19.3333Z"/>

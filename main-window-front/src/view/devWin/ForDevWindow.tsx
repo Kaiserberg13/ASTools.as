@@ -11,6 +11,7 @@ export const DevWindow = () => {
                     <Link to='/dev'>Constains</Link>
                     <Link to='/dev/store'>Store data</Link>
                     <Link to='/dev/all-tools'>All tools</Link>
+                    <button onClick={() => window.ipcRenderer.send('open-store-data-editor')}>Open data editor</button>
                 </div>
                 <main>
                     <div className="shadow-img">

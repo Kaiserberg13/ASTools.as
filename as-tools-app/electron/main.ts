@@ -8,6 +8,7 @@ import { programmDirsController } from "./ipc_controllers/dirsController";
 import { devControllers } from "./ipc_controllers/devControllsers";
 import { initProgrammDirs } from "./data/intilizationProgrammDirs";
 import { toolsController } from "./ipc_controllers/toolsController";
+import { foldersController } from "./ipc_controllers/folddersController";
 
 
 function init(){
@@ -20,6 +21,7 @@ function init(){
   programmDirsController();
   devControllers();
   toolsController();
+  foldersController();
   //#endregion
 
   app.whenReady().then(() => {

@@ -20,18 +20,18 @@ export class ThemeServices {
     }
 
     onUpdateTheme(listener: (_event: any, newTheme: Theme) => void): void {
-        window.ipcRenderer.on("update-theme", (_event, newTheme: Theme) => listener(_event, newTheme))
+        window.ipcRenderer.on("update-theme", listener)
     }
 
     offUpdateTheme(listener: (_event: any, newTheme: Theme) => void): void {
-        window.ipcRenderer.off("update-theme", (_event, newTheme: Theme) => listener(_event, newTheme))
+        window.ipcRenderer.off("update-theme", listener)
     }
 
     onUpdatePalette(listener: (_event: any, newPalette: string) => void): void {
-        window.ipcRenderer.on("update-palette", (_event, newPalette: string) => listener(_event, newPalette))
+        window.ipcRenderer.on("update-palette", listener)
     }
 
     offUpdatePalette(listener: (_event: any, newPalette: string) => void): void {
-        window.ipcRenderer.off("update-palette", (_event, newPalette: string) => listener(_event, newPalette))
+        window.ipcRenderer.off("update-palette", listener)
     }
 }

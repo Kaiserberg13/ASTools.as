@@ -1,17 +1,11 @@
 import './SidebarSettings.css';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const SidebarSettings: React.FC = () => {
-    const { pathname } = useLocation();
-
-    const isActive = (path: string) => {
-        return pathname === `/settings/${path}` || (path === '' && pathname === '/settings');
-    }
-
     return (
         <div className="sidebar-panel-settings">
-            <Link to="/settings/" className={isActive('') ? 'active' : ''}>General</Link>
-            <Link to="/settings/theme" className={isActive('theme') ? 'active' : ''}>Theme</Link>   
+            <NavLink to="/settings/" end className={({ isActive }) => `item ${isActive ? 'active' : ''}`}>General</NavLink>
+            <NavLink to="/settings/theme" end className={({ isActive }) => `item ${isActive ? 'active' : ''}`}>Theme</NavLink>   
         </div>
     )
 }

@@ -14899,7 +14899,7 @@ class ElectronStore extends Conf {
 }
 var electronStore = ElectronStore;
 const Store = /* @__PURE__ */ getDefaultExportFromCjs(electronStore);
-const store$8 = new Store();
+const store$a = new Store();
 let winMain = null;
 function createMainWindow() {
   winMain = new BrowserWindow({
@@ -14916,8 +14916,8 @@ function createMainWindow() {
     height: 700,
     width: 985
   });
-  const currentTheme = store$8.get("theme") || "light";
-  const currentPalette = store$8.get("palette") || "default";
+  const currentTheme = store$a.get("theme") || "light";
+  const currentPalette = store$a.get("palette") || "default";
   winMain.webContents.on("did-finish-load", () => {
     winMain == null ? void 0 : winMain.webContents.send("update-theme", currentTheme);
     winMain == null ? void 0 : winMain.webContents.send("update-palette", currentPalette);
@@ -14962,7 +14962,7 @@ function WindowController() {
     if (win) win.close();
   });
 }
-const store$7 = new Store();
+const store$9 = new Store();
 let winSettings = null;
 function createSettingsWindow() {
   winSettings = new BrowserWindow({
@@ -14980,8 +14980,8 @@ function createSettingsWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$7.get("theme") || "light";
-  const currentPalette = store$7.get("palette") || "default";
+  const currentTheme = store$9.get("theme") || "light";
+  const currentPalette = store$9.get("palette") || "default";
   winSettings.webContents.on("did-finish-load", () => {
     winSettings == null ? void 0 : winSettings.webContents.send("update-theme", currentTheme);
     winSettings == null ? void 0 : winSettings.webContents.send("update-palette", currentPalette);
@@ -14996,7 +14996,7 @@ function createSettingsWindow() {
     winSettings.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
-const store$6 = new Store();
+const store$8 = new Store();
 let winDev = null;
 function createDevWindow() {
   winDev = new BrowserWindow({
@@ -15014,8 +15014,8 @@ function createDevWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$6.get("theme") || "light";
-  const currentPalette = store$6.get("palette") || "default";
+  const currentTheme = store$8.get("theme") || "light";
+  const currentPalette = store$8.get("palette") || "default";
   winDev.webContents.on("did-finish-load", () => {
     winDev == null ? void 0 : winDev.webContents.send("update-theme", currentTheme);
     winDev == null ? void 0 : winDev.webContents.send("update-palette", currentPalette);
@@ -15030,7 +15030,7 @@ function createDevWindow() {
     winDev.loadURL(`file://${RENDERER_DIST}/index.html#/dev`);
   }
 }
-const store$5 = new Store();
+const store$7 = new Store();
 let winAddFolder = null;
 function createAddFoldersWindow() {
   winAddFolder = new BrowserWindow({
@@ -15048,8 +15048,8 @@ function createAddFoldersWindow() {
     height: 400,
     width: 550
   });
-  const currentTheme = store$5.get("theme") || "light";
-  const currentPalette = store$5.get("palette") || "default";
+  const currentTheme = store$7.get("theme") || "light";
+  const currentPalette = store$7.get("palette") || "default";
   winAddFolder.webContents.on("did-finish-load", () => {
     winAddFolder == null ? void 0 : winAddFolder.webContents.send("update-theme", currentTheme);
     winAddFolder == null ? void 0 : winAddFolder.webContents.send("update-palette", currentPalette);
@@ -15064,6 +15064,7 @@ function createAddFoldersWindow() {
     winAddFolder.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
+const store$6 = new Store();
 function createWindowController() {
   ipcMain$1.on("open-settings-window", () => {
     if (winSettings == null ? void 0 : winSettings.isClosable) {
@@ -15086,62 +15087,65 @@ function createWindowController() {
       createAddFoldersWindow();
     }
   });
+  ipcMain$1.on("open-store-data-editor", () => {
+    store$6.openInEditor();
+  });
 }
-const store$4 = new Store();
+const store$5 = new Store();
 function themeController() {
   ipcMain$1.handle("get-theme", async () => {
-    const saved = store$4.get("theme");
+    const saved = store$5.get("theme");
     if (saved === "light" || saved === "dark") {
       return saved;
     }
     return "light";
   });
   ipcMain$1.handle("get-palette", async () => {
-    const saved = store$4.get("palette");
+    const saved = store$5.get("palette");
     if (typeof saved === "string") return saved;
     return "default";
   });
   app$1.whenReady().then(() => {
     ipcMain$1.on("set-theme", (_, newTheme) => {
-      store$4.set("theme", newTheme);
+      store$5.set("theme", newTheme);
       BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send("update-theme", newTheme);
       });
     });
     ipcMain$1.on("set-palette", (_, newPalette) => {
-      store$4.set("palette", newPalette);
+      store$5.set("palette", newPalette);
       BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send("update-palette", newPalette);
       });
     });
   });
 }
-const store$3 = new Store();
+const store$4 = new Store();
 function programmDirsController() {
   registerDirInStore("tools", TOOL_DIR_DEV_PATH, tool_dir);
   registerDirInStore("theme", THEME_DIR_DEV_PATH, theme_dir);
 }
 function registerDirInStore(name, DEV_PATH, production_path) {
-  if (!store$3.has(`${name}-dir`)) {
+  if (!store$4.has(`${name}-dir`)) {
     if (VITE_DEV_SERVER_URL) {
-      store$3.set(`${name}-dir`, DEV_PATH);
+      store$4.set(`${name}-dir`, DEV_PATH);
     } else {
-      store$3.set(`${name}-dir`, production_path);
+      store$4.set(`${name}-dir`, production_path);
     }
   }
   ipcMain$1.handle(`get-${name}-dir`, async () => {
-    return store$3.get(`${name}-dir`);
+    return store$4.get(`${name}-dir`);
   });
   app$1.whenReady().then(() => {
     ipcMain$1.on(`set-${name}-dir`, (_, newDir) => {
-      store$3.set(`${name}-dir`, newDir);
+      store$4.set(`${name}-dir`, newDir);
       BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send(`update-${name}-dir`, newDir);
       });
     });
   });
 }
-const store$2 = new Store();
+const store$3 = new Store();
 function devControllers() {
   ipcMain$1.handle("get-constains", () => {
     const devView = {
@@ -15165,40 +15169,40 @@ function devControllers() {
     return devView;
   });
   ipcMain$1.handle("get-store", () => {
-    return store$2.store;
+    return store$3.store;
   });
 }
-const store$1 = new Store();
+const store$2 = new Store();
 function initProgrammDirs() {
   if (VITE_DEV_SERVER_URL) {
-    store$1.set("mode", "dev");
-    if (store$1.has("incilizated")) {
-      store$1.delete("incilizated");
+    store$2.set("mode", "dev");
+    if (store$2.has("incilizated")) {
+      store$2.delete("incilizated");
     }
   } else {
-    store$1.set("mode", "production");
-    if (!store$1.has("incilizated")) {
-      store$1.set("incilizated", false);
+    store$2.set("mode", "production");
+    if (!store$2.has("incilizated")) {
+      store$2.set("incilizated", false);
     }
   }
-  if (store$1.has("incilizated")) {
-    if (!store$1.get("incilizated")) {
-      store$1.delete("tools-dir");
-      store$1.delete("theme-dir");
+  if (store$2.has("incilizated")) {
+    if (!store$2.get("incilizated")) {
+      store$2.delete("tools-dir");
+      store$2.delete("theme-dir");
       initDirInStore("tools", tool_dir);
       initDirInStore("theme", theme_dir);
-      store$1.set("incilizated", true);
+      store$2.set("incilizated", true);
     }
   }
 }
 function initDirInStore(name, path2) {
-  if (!store$1.has(`${name}-dir`)) {
-    store$1.set(`${name}-dir`, path2);
+  if (!store$2.has(`${name}-dir`)) {
+    store$2.set(`${name}-dir`, path2);
   }
 }
-const store = new Store();
+const store$1 = new Store();
 function toolsController() {
-  let toolsDir = VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : store.get("tools-dir");
+  let toolsDir = VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : store$1.get("tools-dir");
   ipcMain$1.handle("get-all-tools", async () => {
     const tools = [];
     try {
@@ -15228,6 +15232,40 @@ function toolsController() {
     return tools;
   });
 }
+const store = new Store();
+function foldersController() {
+  ipcMain$1.handle("get-all-folders", async () => {
+    if (!store.has("folders")) return null;
+    return store.get("folders");
+  });
+  ipcMain$1.handle("get-folder", async (_, name) => {
+    if (!store.has("folders")) return null;
+    const folders = store.get("folders");
+    const currentFolder = folders.find((folder) => folder.Label === name);
+    if (!currentFolder) return null;
+    return currentFolder;
+  });
+  ipcMain$1.on("create-folder", (_, folder) => {
+    if (!store.has("folders")) {
+      store.set("folders", [folder]);
+    } else {
+      const folders = store.get("folders");
+      store.set("folders", [...folders, folder]);
+    }
+    winMain == null ? void 0 : winMain.webContents.send("update-folders", store.get("folders"));
+  });
+  ipcMain$1.on("delete-folder", (_, label) => {
+    if (!store.has("folders")) return;
+    const folders = store.get("folders");
+    const remaining = folders.filter((f) => f.Label !== label);
+    if (folders.length === 0) {
+      store.delete("folders");
+    } else {
+      store.set("folders", remaining);
+    }
+    winMain == null ? void 0 : winMain.webContents.send("update-folders", store.get("folders"));
+  });
+}
 function init() {
   registerAppEvents();
   WindowController();
@@ -15236,6 +15274,7 @@ function init() {
   programmDirsController();
   devControllers();
   toolsController();
+  foldersController();
   app$1.whenReady().then(() => {
     protocol.registerFileProtocol("save-file", (request, callback) => {
       const filePath = request.url.replace(`save-file://`, "");

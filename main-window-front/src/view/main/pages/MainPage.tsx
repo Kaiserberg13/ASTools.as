@@ -1,13 +1,8 @@
-import type { FolderModel } from '../../../models/FolderModel';
 import './Folder.css';
 import { useFolderMainState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
 
-interface FolderPageProps {
-  folderModel: FolderModel;
-}
-
-const MainFolderPage: React.FC<FolderPageProps> = ()  => {
+const MainFolderPage: React.FC = ()  => {
     const { selectedTag, viewTools, loading, error, filters, filterdTools, setSelectedTag, setViewTools} = useFolderMainState();
     const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
 

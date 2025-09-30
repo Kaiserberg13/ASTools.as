@@ -13,12 +13,14 @@ import { toolsController } from "./ipc_controllers/toolsController";
 function init(){
   registerAppEvents();
 
+  //#region ipc controllers
   WindowController();
   createWindowController();
   themeController();
   programmDirsController();
   devControllers();
   toolsController();
+  //#endregion
 
   app.whenReady().then(() => {
     protocol.registerFileProtocol('save-file', (request, callback) => {
@@ -31,7 +33,9 @@ function init(){
       }
     })
 
+    //#region data
     initProgrammDirs();
+    //#endregion
 
     createMainWindow();
 

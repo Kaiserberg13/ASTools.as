@@ -1,4 +1,4 @@
-import type { ToolModel } from "./ToolViewModel";
+import { ToolModel } from "./ToolModel";
 
 export interface FolderModel {
     Label: string;

@@ -14899,7 +14899,7 @@ class ElectronStore extends Conf {
 }
 var electronStore = ElectronStore;
 const Store = /* @__PURE__ */ getDefaultExportFromCjs(electronStore);
-const store$7 = new Store();
+const store$8 = new Store();
 let winMain = null;
 function createMainWindow() {
   winMain = new BrowserWindow({
@@ -14916,8 +14916,8 @@ function createMainWindow() {
     height: 700,
     width: 985
   });
-  const currentTheme = store$7.get("theme") || "light";
-  const currentPalette = store$7.get("palette") || "default";
+  const currentTheme = store$8.get("theme") || "light";
+  const currentPalette = store$8.get("palette") || "default";
   winMain.webContents.on("did-finish-load", () => {
     winMain == null ? void 0 : winMain.webContents.send("update-theme", currentTheme);
     winMain == null ? void 0 : winMain.webContents.send("update-palette", currentPalette);
@@ -14962,7 +14962,7 @@ function WindowController() {
     if (win) win.close();
   });
 }
-const store$6 = new Store();
+const store$7 = new Store();
 let winSettings = null;
 function createSettingsWindow() {
   winSettings = new BrowserWindow({
@@ -14980,8 +14980,8 @@ function createSettingsWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$6.get("theme") || "light";
-  const currentPalette = store$6.get("palette") || "default";
+  const currentTheme = store$7.get("theme") || "light";
+  const currentPalette = store$7.get("palette") || "default";
   winSettings.webContents.on("did-finish-load", () => {
     winSettings == null ? void 0 : winSettings.webContents.send("update-theme", currentTheme);
     winSettings == null ? void 0 : winSettings.webContents.send("update-palette", currentPalette);
@@ -14996,7 +14996,7 @@ function createSettingsWindow() {
     winSettings.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
-const store$5 = new Store();
+const store$6 = new Store();
 let winDev = null;
 function createDevWindow() {
   winDev = new BrowserWindow({
@@ -15014,8 +15014,8 @@ function createDevWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$5.get("theme") || "light";
-  const currentPalette = store$5.get("palette") || "default";
+  const currentTheme = store$6.get("theme") || "light";
+  const currentPalette = store$6.get("palette") || "default";
   winDev.webContents.on("did-finish-load", () => {
     winDev == null ? void 0 : winDev.webContents.send("update-theme", currentTheme);
     winDev == null ? void 0 : winDev.webContents.send("update-palette", currentPalette);
@@ -15028,6 +15028,40 @@ function createDevWindow() {
     winDev.loadURL(DEV_WINDOW_DEV_URL);
   } else {
     winDev.loadURL(`file://${RENDERER_DIST}/index.html#/dev`);
+  }
+}
+const store$5 = new Store();
+let winAddFolder = null;
+function createAddFoldersWindow() {
+  winAddFolder = new BrowserWindow({
+    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    show: false,
+    frame: false,
+    title: "Add folder",
+    webPreferences: {
+      preload: __preloadpath,
+      contextIsolation: true,
+      nodeIntegration: false
+    },
+    minWidth: 550,
+    minHeight: 400,
+    height: 400,
+    width: 550
+  });
+  const currentTheme = store$5.get("theme") || "light";
+  const currentPalette = store$5.get("palette") || "default";
+  winAddFolder.webContents.on("did-finish-load", () => {
+    winAddFolder == null ? void 0 : winAddFolder.webContents.send("update-theme", currentTheme);
+    winAddFolder == null ? void 0 : winAddFolder.webContents.send("update-palette", currentPalette);
+    winAddFolder == null ? void 0 : winAddFolder.show();
+  });
+  winAddFolder.on("closed", () => {
+    winAddFolder = null;
+  });
+  if (VITE_DEV_SERVER_URL) {
+    winAddFolder.loadURL(CREATE_FOLDER_WINDOW_DEV_URL);
+  } else {
+    winAddFolder.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
 function createWindowController() {
@@ -15043,6 +15077,13 @@ function createWindowController() {
       winDev.focus();
     } else {
       createDevWindow();
+    }
+  });
+  ipcMain$1.on("open-create-folder-window", () => {
+    if (winAddFolder == null ? void 0 : winAddFolder.isClosable) {
+      winAddFolder.focus();
+    } else {
+      createAddFoldersWindow();
     }
   });
 }

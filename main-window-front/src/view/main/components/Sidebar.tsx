@@ -16,6 +16,10 @@ const Sidebar: React.FC = ()  => {
         window.ipcRenderer.send('open-dev-window')
     }
 
+    const openCreateFolderWin = () => {
+        window.ipcRenderer.send('open-create-folder-window')
+    }
+
     return (
         <div className='sidebar-panel'>
             <div className="folders-panel">
@@ -30,7 +34,7 @@ const Sidebar: React.FC = ()  => {
                 </Link>
             </div>
             <div className="other-panel">
-                <button>
+                <button onClick={openCreateFolderWin}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.4508 2.53415C12.6128 1.82716 11.3872 1.82716 10.5492 2.53415L3.79916 8.22869C3.29241 8.6562 3 9.28545 3 9.94844V19.2536C3 20.2201 3.7835 21.0036 4.75 21.0036H7.75C8.7165 21.0036 9.5 20.2201 9.5 19.2536V15.251C9.5 14.5717 10.0418 14.019 10.7169 14.0014H13.2831C13.9582 14.019 14.5 14.5717 14.5 15.251V19.2536C14.5 20.2201 15.2835 21.0036 16.25 21.0036H19.25C20.2165 21.0036 21 20.2201 21 19.2536V9.94844C21 9.28545 20.7076 8.6562 20.2008 8.22869L13.4508 2.53415Z"/>
                     </svg>

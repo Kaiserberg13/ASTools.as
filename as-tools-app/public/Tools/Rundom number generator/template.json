@@ -1,0 +1,61 @@
+[
+  {
+    "category_text": "Утилиты"
+  },
+  {
+    "type": "bool",
+    "name": "Unl",
+    "text": "Тест"
+  },
+  {
+    "type": "str",
+    "name": "PathToFolder",
+    "text": "Путь к папке",
+    "file_path": true
+  },
+  {
+    "type": "int",
+    "name": "RandomIntFromUser",
+    "text": "ВВедите просто число хз"
+  },
+  {
+    "category_text": "Бул переменные"
+  },
+  {
+    "type": "bool",
+    "name": "ReverseBool",
+    "text": "Прикольная кнопка",
+    "is_active": "true",
+    "icon": "1"
+  },
+  {
+    "type": "bool",
+    "name": "Unlimited",
+    "text": "Без ограничений?"
+  },
+  {
+    "type": "bool",
+    "name": "Unlimited2",
+    "text": "Без ограничений2?"
+  },
+  {
+    "type": "bool",
+    "name": "Unlimited23",
+    "text": "Без ограничени22й2?"
+  },
+  {
+    "category_text": "Переменные"
+  },
+  {
+    "type": "int",
+    "name": "MinNum",
+    "text": "Минимальное число",
+    "condition": "Unlimited == False"
+  },
+  {
+    "type": "int",
+    "name": "MaxNum",
+    "text": "Максимальное число",
+    "condition": "Unlimited == False"
+  }
+]

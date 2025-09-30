@@ -1,6 +1,6 @@
 import './SettingsStyle.css';
 import './ThemePreview.css';
-import { themeController } from '../../../controllers/themmeController';
+import { themeController } from '../../../controllers/themeController';
 
 const ThemeSettingsPage: React.FC = () => {
     const {themeColors, isApply, themeSwitch, chosenPaletteHasDark, submit, fastSubmit, cancel, chahged} = themeController()

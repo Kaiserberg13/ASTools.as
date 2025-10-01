@@ -113,7 +113,15 @@
     width: 32px;
     object-fit: cover;
     border-radius: 4px;
-    padding-bottom: 8px;
+}
+.folder-page .tool-card-mini p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    margin: 8px 8px 0;
 }
 .folder-page .custom-context-menu{
     z-index: 2;
@@ -129,6 +137,24 @@
 .folder-page .custom-context-menu button{
     text-align: left;
     font-size: 14px;
+}
+.folder-page .custom-context-menu a{
+    text-decoration: none;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 4px;
+    background: var(--item-color-primary);
+    font-family: var(--text-family);
+    font-size: 12px;
+    color: var(--text-color-primary);
+    padding: 4px 8px;
+    cursor: pointer;
+}
+.folder-page .custom-context-menu a:hover{
+    background: var(--item-color-hover);
+}
+.folder-page .custom-context-menu a:active{
+    background: var(--item-color-pressed);
 }
 .folder-page .custom-context-menu hr{
     margin: 0;

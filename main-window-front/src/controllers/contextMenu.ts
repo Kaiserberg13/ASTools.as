@@ -36,6 +36,7 @@ export function contextMenuToolPopupController() {
         menuRef,
         menuPos,
         menuVisible,
+        menuTool,
         handleOptionClick,
         handleContextMenu
     }

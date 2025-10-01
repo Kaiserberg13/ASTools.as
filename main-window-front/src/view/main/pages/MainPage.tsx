@@ -1,13 +1,27 @@
 import './Folder.css';
 import { useFolderMainState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
+import { Link, useOutletContext } from 'react-router-dom';
+import type { ToolModel } from '../../../models/ToolViewModel';
 
 const MainFolderPage: React.FC = ()  => {
-    const { selectedTag, viewTools, loading, error, filters, filterdTools, setSelectedTag, setViewTools} = useFolderMainState();
-    const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+    const { tools } = useOutletContext<{ tools: ToolModel[] | null | string}>();
 
-    if (loading) return <div>Загрузка инструментов...</div>;
-    if (error) return <div>{error}</div>;
+    const { selectedTag, viewTools, loading, error, filters, filterdTools, setSelectedTag, setViewTools} = useFolderMainState(tools);
+    const { menuPos, menuRef, menuTool, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+
+    if (loading) return (
+        <div className='folder-page'>
+            <h4>Loading...</h4>
+        </div>
+    )
+
+    if (error) return (
+        <div className='folder-page'>
+            <h4>Error</h4>
+            <h5>{error}</h5>
+        </div>
+    )
 
     return (
         <div className='folder-page'>
@@ -70,10 +84,9 @@ const MainFolderPage: React.FC = ()  => {
                         }}
                     >
                         <button onClick={() => handleOptionClick('Run')}>Run</button>
-                        <button onClick={() => handleOptionClick('Details')}>Details</button>
+                        <Link to={`/tool/Main/${menuTool?.Autor}/${menuTool?.Name}`}>Details</Link>
                         <hr />
-                        <button onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
-                        <button onClick={() => handleOptionClick('MoveToFolder')}>Move to folder</button>
+                        <button onClick={() => handleOptionClick('AddToFolder')}>Add to folder</button>
                     </div>
                 )}
             </div>

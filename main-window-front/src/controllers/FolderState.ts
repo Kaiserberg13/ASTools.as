@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FolderModel } from "../models/FolderModel";
 import type { ToolModel } from "../models/ToolViewModel";
-import { ToolsService } from "../services/ToolsServices";
+/*import { ToolsService } from "../services/ToolsServices";*/
 
 export function useFolderState(model: FolderModel | null){
     const [filters, setFilters] = useState<string[]>(() => model?.Filters ?? []);
@@ -35,8 +35,7 @@ export function useFolderState(model: FolderModel | null){
     };
 }
 
-export function useFolderMainState() {
-    const _service = new ToolsService()
+export function useFolderMainState(allTools: ToolModel[] | null | string) {
     const [tools, setTools] = useState<ToolModel[]>([]);
     const [selectedTag, setSelectedTag] = useState<number>(0);
     const [filters, setFilters] = useState<string[]>([]);
@@ -63,19 +62,13 @@ export function useFolderMainState() {
     }, [tools]);
 
     useEffect(() => {
-        const fetchTools = async () => {
-            try {
-                const loadedTools = await _service.getTools();
-                setTools(loadedTools);
-            } catch (err) {
-                setError('Ошибка загрузки инструментов: ' + (err as Error).message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchTools();
-    }, []);
+        if(typeof allTools === 'string'){
+            setError(allTools);
+        } else if (allTools) {
+            setTools(allTools);
+            setLoading(false);
+        }
+    }, [allTools]);
 
     return {
         selectedTag,

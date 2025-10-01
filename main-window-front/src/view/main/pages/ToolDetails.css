@@ -1,0 +1,77 @@
+.tool-page{
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tool-page .path-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.tool-page .path-buttons .path-to{
+    display: flex;
+    gap: 8px;
+    border: 1px solid var(--outline-color);
+    background: var(--background-color-panel);
+    padding: 4px 12px;
+    flex: 1;
+    border-radius: 4px;
+}
+
+.tool-page .path-buttons button{
+    font-size: 14px;
+    border: 1px solid var(--outline-color);
+    background: var(--background-color-panel);
+}
+
+.tool-page .path-buttons .path-to p{
+    font-size: 14px;
+}
+
+.tool-page .tool-label{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.tool-page .tool-label img{
+    width: 72px;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+}
+
+.tool-page .tool-label h3{
+    font-size: 18px;
+}
+.tool-page .tool-label p{
+    font-size: 14px;
+    color: var(--text-color-description);
+}
+
+.tool-page .tool-controls{
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+    padding: 16px;
+}
+
+
+.tool-page .tool-info {
+    background-color: var(--background-color-block);
+    border: 1px solid var(--outline-color);
+    padding: 16px;
+    border-radius: 8px;
+}
+.tool-page .tool-info h5{
+    font-size: 14px;
+    font-weight: 400;
+    padding-bottom: 8px;
+}
+.tool-page .tool-info img{
+    min-width: 200px;
+    max-width: 1200px;
+    aspect-ratio: 1/auto;
+    border-radius: 8px;
+}

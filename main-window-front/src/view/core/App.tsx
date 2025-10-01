@@ -14,6 +14,7 @@ import { DevConstains } from '../devWin/pages/DevConstains.tsx';
 import { DevStore } from '../devWin/pages/DevStore.tsx';
 import { DevAllTools } from '../devWin/pages/DevAllTools.tsx';
 import AddFolderWindow from '../addFolder/addFolderWindow.tsx';
+import { ToolPageView } from '../main/pages/ToolDetails.tsx';
 
 function App() {
 
@@ -22,8 +23,9 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path='/*' element={<MainWindow />}>
-            <Route index element={<MainFolderPage />} />
+            <Route index element={<MainFolderPage/>} />
             <Route path='folder/:name' element={<FolderPage />} />
+            <Route path='tool/:folder/:author/:name' element={<ToolPageView />} />
           </Route>
           <Route path='/settings/*' element={<SettingsWindow/>}>
             <Route index element={<GeneralSettingsPage/>} />

@@ -15203,9 +15203,10 @@ function initDirInStore(name, path2) {
 const store$1 = new Store();
 function toolsController() {
   let toolsDir = VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : store$1.get("tools-dir");
+  let tools = [];
   ipcMain$1.handle("get-all-tools", async () => {
-    const tools = [];
     try {
+      tools = [];
       const folders = await fs$3.readdir(toolsDir, { withFileTypes: true });
       for (const entry of folders) {
         if (entry.isDirectory()) {
@@ -15230,6 +15231,21 @@ function toolsController() {
       console.log("Error to load tools:", err);
     }
     return tools;
+  });
+  ipcMain$1.on("move-tool-to-folder", (_event, idTool, folderName) => {
+    const folders = store$1.get("folders") || [];
+    if (!folders || folders.length === 0) return;
+    const folder = folders.find((f) => f.Label === folderName);
+    const tool = tools.find((t2) => t2.Id === idTool);
+    if (!tool || !folder) return;
+    folder.Tools = folder.Tools || [];
+    if (!folder.Tools.some((t2) => t2.Id === idTool)) {
+      folder.Tools.push(tool);
+    }
+    const all_tags = folder.Tools.flatMap((t2) => t2.Tags || []);
+    folder.Filters = Array.from(new Set(all_tags));
+    store$1.set("folders", folders);
+    winMain == null ? void 0 : winMain.webContents.send("update-folders", store$1.get("folders"));
   });
 }
 const store = new Store();

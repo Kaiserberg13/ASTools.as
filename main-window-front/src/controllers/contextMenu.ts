@@ -5,12 +5,14 @@ export function contextMenuToolPopupController() {
     const [menuVisible, setMenuVisible] = useState<boolean>(false);
     const [menuPos, setMenuPos] = useState({x: 0, y:0});
     const [menuTool, setMenuTool] = useState<ToolModel | null>(null);
+    const [subMenuVisible, setSubMenuVisible] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent | globalThis.MouseEvent) => {
             if(menuVisible && menuRef.current && !(e.target instanceof Node && menuRef.current.contains(e.target))){
                 setMenuVisible(false);
+                setSubMenuVisible(false);
             }
         }
 
@@ -23,6 +25,7 @@ export function contextMenuToolPopupController() {
     const handleOptionClick = (option: string) => {
         console.log('Option:', option, "for tool:", menuTool);
         setMenuVisible(false);
+        setSubMenuVisible(false);
     }
 
     const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>, tool: ToolModel) => {
@@ -36,8 +39,11 @@ export function contextMenuToolPopupController() {
         menuRef,
         menuPos,
         menuVisible,
+        subMenuVisible,
         menuTool,
         handleOptionClick,
-        handleContextMenu
+        handleContextMenu,
+        setSubMenuVisible,
+        setMenuVisible
     }
 }

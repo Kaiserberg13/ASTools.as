@@ -10,6 +10,17 @@
     display: flex;
     align-items: center;
 }
+.folder-page .folder-name .folder-controll-buttons{
+    display: flex;
+    gap: 8px;
+    margin-right: 12px;
+}
+.folder-page .folder-name .folder-controll-buttons button{
+    padding: 4px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--outline-color);
+}
 .folder-page .folder-name h4{
     flex: 1;
 }

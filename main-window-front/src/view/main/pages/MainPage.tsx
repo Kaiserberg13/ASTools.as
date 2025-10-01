@@ -3,12 +3,25 @@ import { useFolderMainState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
 import { Link, useOutletContext } from 'react-router-dom';
 import type { ToolModel } from '../../../models/ToolViewModel';
+import { FoldersContext } from '../../../controllers/FoldersController';
 
 const MainFolderPage: React.FC = ()  => {
     const { tools } = useOutletContext<{ tools: ToolModel[] | null | string}>();
 
+    const { getAllFolders, moveToolToFolder } = FoldersContext()
     const { selectedTag, viewTools, loading, error, filters, filterdTools, setSelectedTag, setViewTools} = useFolderMainState(tools);
-    const { menuPos, menuRef, menuTool, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+    const { menuPos, menuRef, menuTool, menuVisible, subMenuVisible, handleContextMenu, handleOptionClick, setMenuVisible, setSubMenuVisible } = contextMenuToolPopupController();
+
+    const openSubMenu = () => {
+        setSubMenuVisible(true);
+    }
+
+    const moveTool = (toolId: string | undefined, folderLabel: string) => {
+        if(!toolId) return;
+        moveToolToFolder(toolId, folderLabel);
+        setSubMenuVisible(false);
+        setMenuVisible(false);
+    }
 
     if (loading) return (
         <div className='folder-page'>
@@ -85,8 +98,39 @@ const MainFolderPage: React.FC = ()  => {
                     >
                         <button onClick={() => handleOptionClick('Run')}>Run</button>
                         <Link to={`/tool/Main/${menuTool?.Autor}/${menuTool?.Name}`}>Details</Link>
-                        <hr />
-                        <button onClick={() => handleOptionClick('AddToFolder')}>Add to folder</button>
+                        {getAllFolders().length !== 0 && (
+                            <>
+                                <hr />
+                                <div style={{ position: 'relative' }}>
+                                    <button onClick={openSubMenu}>Add to folder ▸</button>
+                                    {subMenuVisible && (
+                                        <div
+                                            className="submenu"
+                                            style={{
+                                                position: 'absolute',
+                                                top: 0,
+                                                left: '100%',
+                                                background: '#fff',
+                                                border: '1px solid #ccc',
+                                                padding: '4px',
+                                                minWidth: '150px',
+                                                zIndex: 10
+                                            }}
+                                        >
+                                            {getAllFolders().map(folder => (
+                                                <div
+                                                    key={folder.Label}
+                                                    className="submenu-item"
+                                                    onClick={() => moveTool(menuTool?.Id, folder.Label)}
+                                                >
+                                                    {folder.Label}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

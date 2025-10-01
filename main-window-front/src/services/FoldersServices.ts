@@ -12,6 +12,10 @@ export class FolderService {
         return result;
     }
 
+    moveToolToFolder(toolId: string, folderLabel: string): void {
+        window.ipcRenderer.send("move-tool-to-folder", toolId, folderLabel);
+    }
+
     createFolder(folder: FolderModel): void {
         window.ipcRenderer.send("create-folder", folder);
     }
@@ -24,7 +28,7 @@ export class FolderService {
         window.ipcRenderer.on("update-folders", listener);
     }
 
-  offFolderUpdate(listener: (event: any, newFolders: FolderModel[]) => void): void {
-    window.ipcRenderer.off("update-folders", listener);
-  }
+    offFolderUpdate(listener: (event: any, newFolders: FolderModel[]) => void): void {
+        window.ipcRenderer.off("update-folders", listener);
+    }
 }

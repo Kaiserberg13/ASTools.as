@@ -21,6 +21,14 @@ export function FoldersContext() {
         _service.createFolder(folder);
     }
 
+    const getAllFolders = (): FolderModel[] => {
+        return folders
+    }
+
+    const moveToolToFolder = (toolId: string, folderLabel: string) => {
+        _service.moveToolToFolder(toolId, folderLabel);
+    }
+
     useEffect(() => {
         foldersRef.current = folders;
     }, [folders]);
@@ -56,6 +64,8 @@ export function FoldersContext() {
         folders,
         getFolder,
         deleteFolder,
-        createFolder
+        createFolder,
+        getAllFolders,
+        moveToolToFolder
     }
 }

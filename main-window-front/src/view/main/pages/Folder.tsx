@@ -6,7 +6,7 @@ import { FoldersContext } from '../../../controllers/FoldersController';
 
 const FolderPage: React.FC = ()  => {
     const { name } = useParams<{name: string}>();
-    const { getFolder } = FoldersContext();
+    const { getFolder, deleteFolder } = FoldersContext();
     const { filters, selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolder(name as string));
     const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
 
@@ -14,6 +14,10 @@ const FolderPage: React.FC = ()  => {
         <div className='folder-page'>
             <div className="folder-name">
                 <h4>{name}</h4>
+                <div className="folder-controll-buttons">
+                    <button onClick={() => deleteFolder(name as string)}>Delete</button>
+                    <button>Edit</button>
+                </div>
                 <div className='view-switch'>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`switch-item ${!viewTools ? 'active' : ''}`} onClick={() => setViewTools(false)}>
                         <path d="M4 19.3333C4 18.9651 4.29848 18.6667 4.66667 18.6667H19.3333C19.7015 18.6667 20 18.9651 20 19.3333C20 19.7015 19.7015 20 19.3333 20H4.66667C4.29848 20 4 19.7015 4 19.3333Z"/>
@@ -39,14 +43,14 @@ const FolderPage: React.FC = ()  => {
                 {viewTools ? 
                     filterdTools.map((tool, index) => (
                         <div className='tool-card-mini' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>
-                            <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
+                            <img src={`save-file://${tool.IconUrl}`} alt={`${tool.Name} icon`} loading="lazy"/>
                             <p>{tool.Name}</p>
                         </div>
                     )) :
                     filterdTools.map((tool, index) => (
                         <div className='tool-card-big' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>
                             <div className="tool-info">
-                                <img src={tool.IconUrl} alt={tool.Name} loading="lazy"/>
+                                <img src={`save-file://${tool.IconUrl}`} alt={`${tool.Name} icon`} loading="lazy"/>
                                 <div className="text">
                                     <h6>{tool.Name}</h6>
                                     <p>{tool.Autor} | {tool.Tags.join(',')}</p>
@@ -55,7 +59,7 @@ const FolderPage: React.FC = ()  => {
                             <p className="tool-description">
                                 {tool.Description}
                             </p>
-                            <img className='cover' src={tool.CoverUrl} alt={tool.Name} />
+                            <img className='cover' src={`save-file://${tool.CoverUrl}`} alt={`${tool.Name} cover`} />
                         </div>
                     ))
                 }
@@ -73,7 +77,7 @@ const FolderPage: React.FC = ()  => {
                         <button onClick={() => handleOptionClick('Details')}>Details</button>
                         <hr />
                         <button onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
-                        <button onClick={() => handleOptionClick('MoveToFolder')}>Move to folder</button>
+                        <button onClick={() => handleOptionClick('MoveToFolder')}>Add to folder</button>
                     </div>
                 )}
             </div>

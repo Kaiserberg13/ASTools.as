@@ -102,7 +102,7 @@ const MainFolderPage: React.FC = ()  => {
                             <>
                                 <hr />
                                 <div style={{ position: 'relative' }}>
-                                    <button onClick={openSubMenu}>Add to folder ▸</button>
+                                    <button className="submenu-item" onClick={openSubMenu}>Add to folder ▸</button>
                                     {subMenuVisible && (
                                         <div
                                             className="submenu"

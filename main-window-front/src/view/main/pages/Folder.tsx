@@ -76,7 +76,7 @@ const FolderPage: React.FC = ()  => {
                 }
                 {menuVisible && (
                     <div
-                        className="custom-context-menu"
+                        className="submenu"
                         ref={menuRef}
                         style={{
                             position: 'absolute',
@@ -84,27 +84,23 @@ const FolderPage: React.FC = ()  => {
                             left: menuPos.x,
                         }}
                     >
-                        <button onClick={() => handleOptionClick('Run')}>Run</button>
-                        <button onClick={() => handleOptionClick('Details')}>Details</button>
+                        <button className="submenu-item" onClick={() => handleOptionClick('Run')}>Run</button>
+                        <button className="submenu-item" onClick={() => handleOptionClick('Details')}>Details</button>
                         <hr />
-                        <button onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
+                        <button className="submenu-item" onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
                         {getAllFolders().length !== 0 && (
                             <>
                                 <hr />
                                 <div style={{ position: 'relative' }}>
-                                    <button onClick={openSubMenu}>Add to folder ▸</button>
+                                    <button className="submenu-item" onClick={openSubMenu}>Add to folder ▸</button>
                                     {subMenuVisible && (
                                         <div
                                             className="submenu"
                                             style={{
                                                 position: 'absolute',
-                                                top: 0,
-                                                left: '100%',
-                                                background: '#fff',
-                                                border: '1px solid #ccc',
-                                                padding: '4px',
+                                                top: -4,
+                                                left: 'calc(100% + 10px)',
                                                 minWidth: '150px',
-                                                zIndex: 10
                                             }}
                                         >
                                             {getAllFolders().map(folder => (

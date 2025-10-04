@@ -60,15 +60,16 @@
 
 .folder-page .tools{
     flex: 1;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
     gap: 16px;
     margin: 0;
     padding: 0;
 }
-
+.folder-page .tools.mini{
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
 .folder-page .tool-card-big {
-    width: 370px;
     background-color: var(--background-color-block);
     border: var(--outline-color) 1px solid;
     border-radius: 8px;
@@ -109,7 +110,6 @@
 }
 
 .folder-page .tool-card-mini {
-    width: 140px;
     height: 92px;
     background-color: var(--background-color-block);
     border: var(--outline-color) 1px solid;

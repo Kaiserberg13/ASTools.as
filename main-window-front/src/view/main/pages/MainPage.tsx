@@ -62,7 +62,7 @@ const MainFolderPage: React.FC = ()  => {
                     ))
                 }
             </div>
-            <div className="tools">
+            <div className={`tools ${viewTools ? 'mini' : ''}`}>
                 {viewTools ? 
                     filterdTools.map((tool, index) => (
                         <div className='tool-card-mini' key={index} onDoubleClick={() => console.log(`DoubleClick ${tool.Name}`)} onContextMenu={(e) => handleContextMenu(e, tool)}>

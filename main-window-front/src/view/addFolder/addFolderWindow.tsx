@@ -20,8 +20,14 @@ function AddFolderWindow() {
           <div className="shadow-img">
             <div className="fixed-content">
               <div className="add-folder">
-                <input type='text' onChange={(e) => setFolderName(e.target.value)}/>
-                <button onClick={createFolder}>Create</button>
+                <div className="icons-list"></div>
+                <div className="input-container">
+                  <label>Folder name:</label>
+                  <input type='text' onChange={(e) => setFolderName(e.target.value)}/>
+                </div>
+                <div className="control-container">
+                  <button onClick={createFolder}>Create</button>
+                </div>
               </div>
             </div>
           </div>

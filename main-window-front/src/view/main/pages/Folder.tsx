@@ -6,9 +6,20 @@ import { FoldersContext } from '../../../controllers/FoldersController';
 
 const FolderPage: React.FC = ()  => {
     const { name } = useParams<{name: string}>();
-    const { getFolder, deleteFolder } = FoldersContext();
+    const { getFolder, deleteFolder, getAllFolders, moveToolToFolder } = FoldersContext();
     const { filters, selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolder(name as string));
-    const { menuPos, menuRef, menuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+    const { menuPos, menuRef, menuVisible, subMenuVisible, menuTool, setSubMenuVisible, setMenuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+
+    const openSubMenu = () => {
+        setSubMenuVisible(true);
+    }
+
+    const moveTool = (toolId: string | undefined, folderLabel: string) => {
+        if(!toolId) return;
+        moveToolToFolder(toolId, folderLabel);
+        setSubMenuVisible(false);
+        setMenuVisible(false);
+    }
 
     return (
         <div className='folder-page'>
@@ -77,7 +88,39 @@ const FolderPage: React.FC = ()  => {
                         <button onClick={() => handleOptionClick('Details')}>Details</button>
                         <hr />
                         <button onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
-                        <button onClick={() => handleOptionClick('MoveToFolder')}>Add to folder</button>
+                        {getAllFolders().length !== 0 && (
+                            <>
+                                <hr />
+                                <div style={{ position: 'relative' }}>
+                                    <button onClick={openSubMenu}>Add to folder ▸</button>
+                                    {subMenuVisible && (
+                                        <div
+                                            className="submenu"
+                                            style={{
+                                                position: 'absolute',
+                                                top: 0,
+                                                left: '100%',
+                                                background: '#fff',
+                                                border: '1px solid #ccc',
+                                                padding: '4px',
+                                                minWidth: '150px',
+                                                zIndex: 10
+                                            }}
+                                        >
+                                            {getAllFolders().map(folder => (
+                                                <div
+                                                    key={folder.Label}
+                                                    className="submenu-item"
+                                                    onClick={() => moveTool(menuTool?.Id, folder.Label)}
+                                                >
+                                                    {folder.Label}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

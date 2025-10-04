@@ -24,6 +24,7 @@ main .shadow-img {
 
 main .shadow-img .fixed-content{
     overflow-y: auto;
+    height: 100%;
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,

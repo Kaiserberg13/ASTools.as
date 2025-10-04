@@ -88,7 +88,7 @@ const MainFolderPage: React.FC = ()  => {
                 }
                 {menuVisible && (
                     <div
-                        className="custom-context-menu"
+                        className="submenu"
                         ref={menuRef}
                         style={{
                             position: 'absolute',
@@ -96,8 +96,8 @@ const MainFolderPage: React.FC = ()  => {
                             left: menuPos.x,
                         }}
                     >
-                        <button onClick={() => handleOptionClick('Run')}>Run</button>
-                        <Link to={`/tool/Main/${menuTool?.Autor}/${menuTool?.Name}`}>Details</Link>
+                        <button className="submenu-item" onClick={() => handleOptionClick('Run')}>Run</button>
+                        <Link className="submenu-item" to={`/tool/Main/${menuTool?.Autor}/${menuTool?.Name}`}>Details</Link>
                         {getAllFolders().length !== 0 && (
                             <>
                                 <hr />
@@ -108,13 +108,9 @@ const MainFolderPage: React.FC = ()  => {
                                             className="submenu"
                                             style={{
                                                 position: 'absolute',
-                                                top: 0,
-                                                left: '100%',
-                                                background: '#fff',
-                                                border: '1px solid #ccc',
-                                                padding: '4px',
+                                                top: -4,
+                                                left: 'calc(100% + 10px)',
                                                 minWidth: '150px',
-                                                zIndex: 10
                                             }}
                                         >
                                             {getAllFolders().map(folder => (

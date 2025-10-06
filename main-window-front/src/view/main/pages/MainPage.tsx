@@ -4,13 +4,15 @@ import { contextMenuToolPopupController } from '../../../controllers/contextMenu
 import { Link, useOutletContext } from 'react-router-dom';
 import type { ToolModel } from '../../../models/ToolViewModel';
 import { FoldersContext } from '../../../controllers/FoldersController';
+import { toolController } from '../../../controllers/ToolRunController';
 
 const MainFolderPage: React.FC = ()  => {
     const { tools } = useOutletContext<{ tools: ToolModel[] | null | string}>();
 
     const { getAllFolders, moveToolToFolder } = FoldersContext()
     const { selectedTag, viewTools, loading, error, filters, filterdTools, setSelectedTag, setViewTools} = useFolderMainState(tools);
-    const { menuPos, menuRef, menuTool, menuVisible, subMenuVisible, handleContextMenu, handleOptionClick, setMenuVisible, setSubMenuVisible } = contextMenuToolPopupController();
+    const { menuPos, menuRef, menuTool, menuVisible, subMenuVisible, handleContextMenu, setMenuVisible, setSubMenuVisible } = contextMenuToolPopupController();
+    const { runTool } = toolController();
 
     const openSubMenu = () => {
         setSubMenuVisible(true);
@@ -19,6 +21,13 @@ const MainFolderPage: React.FC = ()  => {
     const moveTool = (toolId: string | undefined, folderLabel: string) => {
         if(!toolId) return;
         moveToolToFolder(toolId, folderLabel);
+        setSubMenuVisible(false);
+        setMenuVisible(false);
+    }
+
+    const toolRun = (toolId: string | undefined) => {
+        if(!toolId) return;
+        runTool(toolId);
         setSubMenuVisible(false);
         setMenuVisible(false);
     }
@@ -96,7 +105,7 @@ const MainFolderPage: React.FC = ()  => {
                             left: menuPos.x,
                         }}
                     >
-                        <button className="submenu-item" onClick={() => handleOptionClick('Run')}>Run</button>
+                        <button className="submenu-item" onClick={() => toolRun(menuTool?.Id)}>Run</button>
                         <Link className="submenu-item" to={`/tool/Main/${menuTool?.Autor}/${menuTool?.Name}`}>Details</Link>
                         {getAllFolders().length !== 0 && (
                             <>

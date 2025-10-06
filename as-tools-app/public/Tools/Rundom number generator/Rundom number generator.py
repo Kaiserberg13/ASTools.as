@@ -3,7 +3,7 @@ import os
 import random
 
 with open("timed_tool_name.json", "r", encoding="utf-8") as f:
-    data = json.load(f)--
+    data = json.load(f)
 
 print("=== Генератор случайных чисел ===")
 suuui = data.get("Uuui", 0)

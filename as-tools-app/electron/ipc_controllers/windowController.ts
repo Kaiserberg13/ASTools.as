@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from "electron";
+import { BrowserWindow, dialog, ipcMain } from "electron";
 
 export function WindowController() {
     let win: BrowserWindow | null;
@@ -22,5 +22,13 @@ export function WindowController() {
     ipcMain.on('window-close', () => {
         win = BrowserWindow.getFocusedWindow();
         if (win) win.close()
+    })
+
+    ipcMain.handle('open-file-dialog', async (_event, options) => {
+        const result = await dialog.showOpenDialog(options);
+        if (result.canceled) {
+            return null;
+        }
+        return result.filePaths[0];
     })
 }

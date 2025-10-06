@@ -6,6 +6,7 @@ import path from 'path';
 import { TOOL_DIR_DEV_PATH, VITE_DEV_SERVER_URL } from '../constains';
 import { FolderModel } from '../models/FolderModel';
 import { winMain } from '../windows/MainWindow';
+import { createToolWindow } from '../windows/ToolWindow';
 
 const store = new Store();
 
@@ -63,5 +64,40 @@ export function toolsController() {
         store.set("folders", folders);
 
         winMain?.webContents.send("update-folders", store.get("folders") as FolderModel[])
+    })
+
+    ipcMain.on("run-tool", async (_event: any, toolID: string) => {
+        createToolWindow(toolID);
+    })
+
+    ipcMain.handle("get-tool-template", async (_event: any, toolID: string) => {
+        const toolTemplatePath = path.join(toolsDir, toolID, "template.json");
+        if(await fs.access(toolTemplatePath).then(() => true).catch(() => false)){
+            const templateData = await fs.readFile(toolTemplatePath, "utf-8");
+            return templateData;
+        }
+        return null;
+    })
+
+    ipcMain.handle("run-tool-process", async (_event: any, toolID: string, toolData: Record<string, any>) => {
+        const templateFile = path.join(toolsDir, toolID, "timed.json");
+        const toolExe = path.join(toolsDir, toolID, `${toolID}.exe`);
+
+        const jsonData = JSON.stringify(toolData, null, 2);
+        await fs.writeFile(templateFile, jsonData, "utf-8");
+
+        const { execFile } = await import('child_process');
+        execFile(toolExe, [], (error, stdout, stderr) => {
+            if(error) {
+                console.error(`Error executing tool: ${error.message}`);
+                _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${error.message}` });
+            } else {
+                console.log(`Tool output: ${stdout}`);
+                console.error(`Tool stderr: ${stderr}`);
+                _event.sender.send("run-tool-answer", { succed: true, message: stdout });
+            }
+        });
+
+        await fs.rm(templateFile);
     })
 }

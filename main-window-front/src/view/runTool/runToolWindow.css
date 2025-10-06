@@ -1,0 +1,72 @@
+.tool-window {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.tool-window .tool-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+.tool-window .tool-content .bool-group{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 112px);
+    justify-content: center;
+    gap: 8px;
+}
+.tool-window .tool-content .bool-group .bool-btn{
+    padding: 8px;
+}
+.tool-window .tool-content .bool-group .bool-btn p{
+    font-size: 12px;
+    font-weight: 500;
+    text-wrap: wrap;
+}
+.tool-window .tool-content .bool-group .bool-btn.active{
+    background-color: var(--active-color);
+    color: var(--text-color-on-accent);
+}
+.tool-window .tool-content .bool-group .bool-btn.active p{
+    color: var(--text-color-on-accent);
+}
+
+.tool-window .tool-content .template-row{
+    margin: 8px 0;
+    display: flex;
+    gap: 8px;
+}
+.tool-window .tool-content .template-row input{
+    flex: 1;
+}
+
+.tool-window .tool-content h5{
+    text-align: center;
+    margin: 12px 0 6px 0;
+    color: var(--text-color-description);
+}
+
+.tool-window .tool-content .answer pre{
+    text-wrap: wrap;
+}
+
+.tool-window .tool-control-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    gap: 8px;
+    border-top: 1px solid var(--outline-color);
+    background-color: var(--background-color-block);
+}
+.tool-window .tool-control-buttons button{
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.tool-window .tool-control-buttons .run-btn{
+    background-color: var(--active-color);
+    color: var(--text-color-on-accent);
+}
+.tool-window .tool-control-buttons .cancel-btn{
+    background-color: var(--error-color);
+    color: var(--text-color-on-accent);
+}

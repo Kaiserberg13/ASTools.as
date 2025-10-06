@@ -15,6 +15,7 @@ import { DevStore } from '../devWin/pages/DevStore.tsx';
 import { DevAllTools } from '../devWin/pages/DevAllTools.tsx';
 import AddFolderWindow from '../addFolder/addFolderWindow.tsx';
 import { ToolPageView } from '../main/pages/ToolDetails.tsx';
+import { ToolWindow } from '../runTool/runToolWindow.tsx';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
             <Route path='store' element={<DevStore />} />
             <Route path='all-tools' element={<DevAllTools />} />
           </Route>
+          <Route path='/tool/:toolID' element={<ToolWindow />} />
         </Routes>
       </HashRouter>
     </ThemeProvider>

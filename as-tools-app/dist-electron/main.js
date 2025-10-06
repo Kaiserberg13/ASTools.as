@@ -1,7 +1,7 @@
-import require$$1$2, { BrowserWindow, app as app$1, ipcMain as ipcMain$1, protocol } from "electron";
+import require$$1$2, { BrowserWindow, app as app$1, ipcMain as ipcMain$1, dialog, protocol } from "electron";
 import path$6 from "node:path";
 import { fileURLToPath } from "node:url";
-import require$$0$1 from "path";
+import path$7 from "path";
 import require$$1$1 from "util";
 import require$$0 from "fs";
 import require$$3$2 from "crypto";
@@ -226,7 +226,7 @@ var pLocate$1 = (iterable, tester, opts) => {
   return Promise.all(items2.map((el) => checkLimit(finder, el))).then(() => {
   }).catch((err) => err instanceof EndError ? err.value : Promise.reject(err));
 };
-const path$5 = require$$0$1;
+const path$5 = path$7;
 const pathExists = pathExistsExports;
 const pLocate = pLocate$1;
 locatePath$1.exports = (iterable, options) => {
@@ -246,7 +246,7 @@ locatePath$1.exports.sync = (iterable, options) => {
   }
 };
 var locatePathExports = locatePath$1.exports;
-const path$4 = require$$0$1;
+const path$4 = path$7;
 const locatePath = locatePathExports;
 findUp$1.exports = (filename, opts = {}) => {
   const startDir = path$4.resolve(opts.cwd || "");
@@ -287,7 +287,7 @@ pkgUp.exports = async ({ cwd } = {}) => findUp("package.json", { cwd });
 pkgUp.exports.sync = ({ cwd } = {}) => findUp.sync("package.json", { cwd });
 var pkgUpExports = pkgUp.exports;
 var envPaths$1 = { exports: {} };
-const path$3 = require$$0$1;
+const path$3 = path$7;
 const os = require$$1;
 const homedir = os.homedir();
 const tmpdir = os.tmpdir();
@@ -598,7 +598,7 @@ const Scheduler = {
 scheduler.default = Scheduler;
 var temp = {};
 Object.defineProperty(temp, "__esModule", { value: true });
-const path$2 = require$$0$1;
+const path$2 = path$7;
 const consts_1$1 = consts;
 const fs_1$1 = fs$1;
 const Temp = {
@@ -647,7 +647,7 @@ process.on("exit", Temp.purgeSyncAll);
 temp.default = Temp;
 Object.defineProperty(dist$1, "__esModule", { value: true });
 dist$1.writeFileSync = dist$1.writeFile = dist$1.readFileSync = dist$1.readFile = void 0;
-const path$1 = require$$0$1;
+const path$1 = path$7;
 const consts_1 = consts;
 const fs_1 = fs$1;
 const lang_1 = lang;
@@ -14396,7 +14396,7 @@ var onetimeExports = onetime$1.exports;
   Object.defineProperty(exports, "__esModule", { value: true });
   const util_12 = require$$1$1;
   const fs2 = require$$0;
-  const path2 = require$$0$1;
+  const path2 = path$7;
   const crypto = require$$3$2;
   const assert = require$$4;
   const events_1 = require$$5;
@@ -14837,7 +14837,7 @@ var onetimeExports = onetime$1.exports;
   module.exports.default = Conf2;
 })(source, source.exports);
 var sourceExports = source.exports;
-const path = require$$0$1;
+const path = path$7;
 const { app, ipcMain, ipcRenderer, shell } = require$$1$2;
 const Conf = sourceExports;
 let isInitialized = false;
@@ -14899,7 +14899,7 @@ class ElectronStore extends Conf {
 }
 var electronStore = ElectronStore;
 const Store = /* @__PURE__ */ getDefaultExportFromCjs(electronStore);
-const store$a = new Store();
+const store$b = new Store();
 let winMain = null;
 function createMainWindow() {
   winMain = new BrowserWindow({
@@ -14916,8 +14916,8 @@ function createMainWindow() {
     height: 700,
     width: 985
   });
-  const currentTheme = store$a.get("theme") || "light";
-  const currentPalette = store$a.get("palette") || "default";
+  const currentTheme = store$b.get("theme") || "light";
+  const currentPalette = store$b.get("palette") || "default";
   winMain.webContents.on("did-finish-load", () => {
     winMain == null ? void 0 : winMain.webContents.send("update-theme", currentTheme);
     winMain == null ? void 0 : winMain.webContents.send("update-palette", currentPalette);
@@ -14961,8 +14961,15 @@ function WindowController() {
     win = BrowserWindow.getFocusedWindow();
     if (win) win.close();
   });
+  ipcMain$1.handle("open-file-dialog", async (_event, options) => {
+    const result = await dialog.showOpenDialog(options);
+    if (result.canceled) {
+      return null;
+    }
+    return result.filePaths[0];
+  });
 }
-const store$9 = new Store();
+const store$a = new Store();
 let winSettings = null;
 function createSettingsWindow() {
   winSettings = new BrowserWindow({
@@ -14980,8 +14987,8 @@ function createSettingsWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$9.get("theme") || "light";
-  const currentPalette = store$9.get("palette") || "default";
+  const currentTheme = store$a.get("theme") || "light";
+  const currentPalette = store$a.get("palette") || "default";
   winSettings.webContents.on("did-finish-load", () => {
     winSettings == null ? void 0 : winSettings.webContents.send("update-theme", currentTheme);
     winSettings == null ? void 0 : winSettings.webContents.send("update-palette", currentPalette);
@@ -14996,7 +15003,7 @@ function createSettingsWindow() {
     winSettings.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
-const store$8 = new Store();
+const store$9 = new Store();
 let winDev = null;
 function createDevWindow() {
   winDev = new BrowserWindow({
@@ -15014,8 +15021,8 @@ function createDevWindow() {
     height: 600,
     width: 800
   });
-  const currentTheme = store$8.get("theme") || "light";
-  const currentPalette = store$8.get("palette") || "default";
+  const currentTheme = store$9.get("theme") || "light";
+  const currentPalette = store$9.get("palette") || "default";
   winDev.webContents.on("did-finish-load", () => {
     winDev == null ? void 0 : winDev.webContents.send("update-theme", currentTheme);
     winDev == null ? void 0 : winDev.webContents.send("update-palette", currentPalette);
@@ -15030,7 +15037,7 @@ function createDevWindow() {
     winDev.loadURL(`file://${RENDERER_DIST}/index.html#/dev`);
   }
 }
-const store$7 = new Store();
+const store$8 = new Store();
 let winAddFolder = null;
 function createAddFoldersWindow() {
   winAddFolder = new BrowserWindow({
@@ -15048,8 +15055,8 @@ function createAddFoldersWindow() {
     height: 400,
     width: 550
   });
-  const currentTheme = store$7.get("theme") || "light";
-  const currentPalette = store$7.get("palette") || "default";
+  const currentTheme = store$8.get("theme") || "light";
+  const currentPalette = store$8.get("palette") || "default";
   winAddFolder.webContents.on("did-finish-load", () => {
     winAddFolder == null ? void 0 : winAddFolder.webContents.send("update-theme", currentTheme);
     winAddFolder == null ? void 0 : winAddFolder.webContents.send("update-palette", currentPalette);
@@ -15064,7 +15071,7 @@ function createAddFoldersWindow() {
     winAddFolder.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
   }
 }
-const store$6 = new Store();
+const store$7 = new Store();
 function createWindowController() {
   ipcMain$1.on("open-settings-window", () => {
     if (winSettings == null ? void 0 : winSettings.isClosable) {
@@ -15088,64 +15095,64 @@ function createWindowController() {
     }
   });
   ipcMain$1.on("open-store-data-editor", () => {
-    store$6.openInEditor();
+    store$7.openInEditor();
   });
 }
-const store$5 = new Store();
+const store$6 = new Store();
 function themeController() {
   ipcMain$1.handle("get-theme", async () => {
-    const saved = store$5.get("theme");
+    const saved = store$6.get("theme");
     if (saved === "light" || saved === "dark") {
       return saved;
     }
     return "light";
   });
   ipcMain$1.handle("get-palette", async () => {
-    const saved = store$5.get("palette");
+    const saved = store$6.get("palette");
     if (typeof saved === "string") return saved;
     return "default";
   });
   app$1.whenReady().then(() => {
     ipcMain$1.on("set-theme", (_, newTheme) => {
-      store$5.set("theme", newTheme);
+      store$6.set("theme", newTheme);
       BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send("update-theme", newTheme);
       });
     });
     ipcMain$1.on("set-palette", (_, newPalette) => {
-      store$5.set("palette", newPalette);
+      store$6.set("palette", newPalette);
       BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send("update-palette", newPalette);
       });
     });
   });
 }
-const store$4 = new Store();
+const store$5 = new Store();
 function programmDirsController() {
   registerDirInStore("tools", TOOL_DIR_DEV_PATH, tool_dir);
   registerDirInStore("theme", THEME_DIR_DEV_PATH, theme_dir);
 }
 function registerDirInStore(name, DEV_PATH, production_path) {
-  if (!store$4.has(`${name}-dir`)) {
+  if (!store$5.has(`${name}-dir`)) {
     if (VITE_DEV_SERVER_URL) {
-      store$4.set(`${name}-dir`, DEV_PATH);
+      store$5.set(`${name}-dir`, DEV_PATH);
     } else {
-      store$4.set(`${name}-dir`, production_path);
+      store$5.set(`${name}-dir`, production_path);
     }
   }
   ipcMain$1.handle(`get-${name}-dir`, async () => {
-    return store$4.get(`${name}-dir`);
+    return store$5.get(`${name}-dir`);
   });
   app$1.whenReady().then(() => {
     ipcMain$1.on(`set-${name}-dir`, (_, newDir) => {
-      store$4.set(`${name}-dir`, newDir);
+      store$5.set(`${name}-dir`, newDir);
       BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send(`update-${name}-dir`, newDir);
       });
     });
   });
 }
-const store$3 = new Store();
+const store$4 = new Store();
 function devControllers() {
   ipcMain$1.handle("get-constains", () => {
     const devView = {
@@ -15169,35 +15176,69 @@ function devControllers() {
     return devView;
   });
   ipcMain$1.handle("get-store", () => {
-    return store$3.store;
+    return store$4.store;
   });
 }
-const store$2 = new Store();
+const store$3 = new Store();
 function initProgrammDirs() {
   if (VITE_DEV_SERVER_URL) {
-    store$2.set("mode", "dev");
-    if (store$2.has("incilizated")) {
-      store$2.delete("incilizated");
+    store$3.set("mode", "dev");
+    if (store$3.has("incilizated")) {
+      store$3.delete("incilizated");
     }
   } else {
-    store$2.set("mode", "production");
-    if (!store$2.has("incilizated")) {
-      store$2.set("incilizated", false);
+    store$3.set("mode", "production");
+    if (!store$3.has("incilizated")) {
+      store$3.set("incilizated", false);
     }
   }
-  if (store$2.has("incilizated")) {
-    if (!store$2.get("incilizated")) {
-      store$2.delete("tools-dir");
-      store$2.delete("theme-dir");
+  if (store$3.has("incilizated")) {
+    if (!store$3.get("incilizated")) {
+      store$3.delete("tools-dir");
+      store$3.delete("theme-dir");
       initDirInStore("tools", tool_dir);
       initDirInStore("theme", theme_dir);
-      store$2.set("incilizated", true);
+      store$3.set("incilizated", true);
     }
   }
 }
 function initDirInStore(name, path2) {
-  if (!store$2.has(`${name}-dir`)) {
-    store$2.set(`${name}-dir`, path2);
+  if (!store$3.has(`${name}-dir`)) {
+    store$3.set(`${name}-dir`, path2);
+  }
+}
+const store$2 = new Store();
+let winTool = null;
+function createToolWindow(toolId) {
+  winTool = new BrowserWindow({
+    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    show: false,
+    frame: false,
+    title: toolId,
+    webPreferences: {
+      preload: __preloadpath,
+      contextIsolation: true,
+      nodeIntegration: false
+    },
+    minWidth: 400,
+    minHeight: 550,
+    height: 550,
+    width: 400
+  });
+  const currentTheme = store$2.get("theme") || "light";
+  const currentPalette = store$2.get("palette") || "default";
+  winTool.webContents.on("did-finish-load", () => {
+    winTool == null ? void 0 : winTool.webContents.send("update-theme", currentTheme);
+    winTool == null ? void 0 : winTool.webContents.send("update-palette", currentPalette);
+    winTool == null ? void 0 : winTool.show();
+  });
+  winTool.on("closed", () => {
+    winTool = null;
+  });
+  if (VITE_DEV_SERVER_URL) {
+    winTool.loadURL(`${TOOL_WINDOW_DEV_URL}/${toolId}`);
+  } else {
+    winTool.loadURL(`file://${RENDERER_DIST}/index.html#/tool/${toolId}`);
   }
 }
 const store$1 = new Store();
@@ -15210,8 +15251,8 @@ function toolsController() {
       const folders = await fs$3.readdir(toolsDir, { withFileTypes: true });
       for (const entry of folders) {
         if (entry.isDirectory()) {
-          const ToolDirPath = require$$0$1.join(toolsDir, entry.name);
-          const ToolInfoPath = require$$0$1.join(ToolDirPath, "info.json");
+          const ToolDirPath = path$7.join(toolsDir, entry.name);
+          const ToolInfoPath = path$7.join(ToolDirPath, "info.json");
           if (await fs$3.access(ToolInfoPath).then(() => true).catch(() => false)) {
             const infoData = await fs$3.readFile(ToolInfoPath, "utf-8");
             const info = JSON.parse(infoData);
@@ -15221,8 +15262,8 @@ function toolsController() {
               Tags: info.tags || [],
               Description: info.description || "",
               Autor: info.author || "unknown",
-              IconUrl: require$$0$1.join(ToolDirPath, "icon.png"),
-              CoverUrl: require$$0$1.join(ToolDirPath, "cover.png")
+              IconUrl: path$7.join(ToolDirPath, "icon.png"),
+              CoverUrl: path$7.join(ToolDirPath, "cover.png")
             });
           }
         }
@@ -15246,6 +15287,35 @@ function toolsController() {
     folder.Filters = Array.from(new Set(all_tags));
     store$1.set("folders", folders);
     winMain == null ? void 0 : winMain.webContents.send("update-folders", store$1.get("folders"));
+  });
+  ipcMain$1.on("run-tool", async (_event, toolID) => {
+    createToolWindow(toolID);
+  });
+  ipcMain$1.handle("get-tool-template", async (_event, toolID) => {
+    const toolTemplatePath = path$7.join(toolsDir, toolID, "template.json");
+    if (await fs$3.access(toolTemplatePath).then(() => true).catch(() => false)) {
+      const templateData = await fs$3.readFile(toolTemplatePath, "utf-8");
+      return templateData;
+    }
+    return null;
+  });
+  ipcMain$1.handle("run-tool-process", async (_event, toolID, toolData) => {
+    const templateFile = path$7.join(toolsDir, toolID, "timed.json");
+    const toolExe = path$7.join(toolsDir, toolID, `${toolID}.exe`);
+    const jsonData = JSON.stringify(toolData, null, 2);
+    await fs$3.writeFile(templateFile, jsonData, "utf-8");
+    const { execFile } = await import("child_process");
+    execFile(toolExe, [], (error2, stdout, stderr) => {
+      if (error2) {
+        console.error(`Error executing tool: ${error2.message}`);
+        _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${error2.message}` });
+      } else {
+        console.log(`Tool output: ${stdout}`);
+        console.error(`Tool stderr: ${stderr}`);
+        _event.sender.send("run-tool-answer", { succed: true, message: stdout });
+      }
+    });
+    await fs$3.rm(templateFile);
   });
 }
 const store = new Store();

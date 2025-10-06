@@ -31,7 +31,8 @@ body::-webkit-scrollbar,
 .view::-webkit-scrollbar,
 main::-webkit-scrollbar,
 main .shadow-img::-webkit-scrollbar,
-main .shadow-img .fixed-content::-webkit-scrollbar{
+main .shadow-img .fixed-content::-webkit-scrollbar,
+main .shadow-img .fixed-content .tool-window .tool-content::-webkit-scrollbar{
     width: 12px;
 }
 html::-webkit-scrollbar-track,
@@ -39,7 +40,8 @@ body::-webkit-scrollbar-track,
 .view::-webkit-scrollbar-track,
 main::-webkit-scrollbar-track,
 main .shadow-img::-webkit-scrollbar-track,
-main .shadow-img .fixed-content::-webkit-scrollbar-track{
+main .shadow-img .fixed-content::-webkit-scrollbar-track,
+main .shadow-img .fixed-content .tool-window .tool-content::-webkit-scrollbar-track{
     background: var(--background-color-panel);
     border-left: var(--outline-color) 1px solid;
 }
@@ -49,7 +51,8 @@ body::-webkit-scrollbar-thumb,
 .view::-webkit-scrollbar-thumb,
 main::-webkit-scrollbar-thumb,
 main .shadow-img::-webkit-scrollbar-thumb,
-main .shadow-img .fixed-content::-webkit-scrollbar-thumb{
+main .shadow-img .fixed-content::-webkit-scrollbar-thumb,
+main .shadow-img .fixed-content .tool-window .tool-content::-webkit-scrollbar-thumb{
     background: var(--text-color-description);
     border-radius: 100px;
     border: var(--outline-color) 1px solid;
@@ -60,6 +63,7 @@ body::-webkit-scrollbar-thumb:hover,
 .view::-webkit-scrollbar-thumb:hover,
 main::-webkit-scrollbar-thumb:hover,
 main .shadow-img::-webkit-scrollbar-thumb:hover,
-main .shadow-img .fixed-content::-webkit-scrollbar-thumb:hover{
+main .shadow-img .fixed-content::-webkit-scrollbar-thumb:hover,
+main .shadow-img .fixed-content .tool-window .tool-content::-webkit-scrollbar-thumb:hover{
     background: var(--active-color);
 }

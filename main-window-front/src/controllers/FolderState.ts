@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { FolderModel } from "../models/FolderModel";
 import type { ToolModel } from "../models/ToolViewModel";
-/*import { ToolsService } from "../services/ToolsServices";*/
 
 export function useFolderState(model: FolderModel | null){
     const [filters, setFilters] = useState<string[]>(() => model?.Filters ?? []);

@@ -5,6 +5,7 @@
   "type": "module",
   "build": {
     "productName": "AS Tools",
+    "icon": "public/logoAST",
     "appId": "com.aperture.tools",
     "directories": {
       "output": "release"

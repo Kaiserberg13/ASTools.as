@@ -8,7 +8,7 @@ export let winAddFolder: BrowserWindow | null = null;
 
 export function createAddFoldersWindow() {
     winAddFolder = new BrowserWindow({
-        icon: path.join(VITE_PUBLIC, 'electron-vite.svg'),
+        icon: path.join(VITE_PUBLIC, 'logoAST.png'),
         show: false,
         frame: false,
         title: "Add folder",

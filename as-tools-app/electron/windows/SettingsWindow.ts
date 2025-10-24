@@ -8,7 +8,7 @@ export let winSettings: BrowserWindow | null = null;
 
 export function createSettingsWindow() {
     winSettings = new BrowserWindow({
-        icon: path.join(VITE_PUBLIC, 'electron-vite.svg'),
+        icon: path.join(VITE_PUBLIC, 'logoAST.png'),
         show: false,
         frame: false,
         title: "settings",

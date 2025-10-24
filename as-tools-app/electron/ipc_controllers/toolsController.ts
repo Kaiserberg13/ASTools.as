@@ -3,10 +3,12 @@ import Store from 'electron-store';
 import { ToolModel } from '../models/ToolModel';
 import fs from 'fs/promises';
 import path from 'path';
-import { TOOL_DIR_DEV_PATH, VITE_DEV_SERVER_URL } from '../constains';
+import { __emulator, TOOL_DIR_DEV_PATH, VITE_DEV_SERVER_URL } from '../constains';
 import { FolderModel } from '../models/FolderModel';
 import { winMain } from '../windows/MainWindow';
 import { createToolWindow } from '../windows/ToolWindow';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 
 const store = new Store();
 
@@ -107,23 +109,29 @@ export function toolsController() {
 
     ipcMain.handle("run-tool-process", async (_event: any, toolID: string, toolData: Record<string, any>) => {
         const templateFile = path.join(toolsDir, toolID, "timed.json");
-        const toolExe = path.join(toolsDir, toolID, `${toolID}.exe`);
 
         const jsonData = JSON.stringify(toolData, null, 2);
         await fs.writeFile(templateFile, jsonData, "utf-8");
 
-        const { execFile } = await import('child_process');
-        execFile(toolExe, [], (error, stdout, stderr) => {
-            if(error) {
-                console.error(`Error executing tool: ${error.message}`);
-                _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${error.message}` });
-            } else {
+        const command = `python "${__emulator}" --path ${VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : toolsDir} --tool ${toolID}`;
+
+        const execPromise = promisify(exec);
+
+        try {
+            const { stdout, stderr } = await execPromise(command);
+            if(stderr) {
+                console.error(`Error executing tool: ${stderr}`);
+                _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${stderr} `});
+            }
+            else {
                 console.log(`Tool output: ${stdout}`);
-                console.error(`Tool stderr: ${stderr}`);
                 _event.sender.send("run-tool-answer", { succed: true, message: stdout });
             }
-        });
-
-        await fs.rm(templateFile);
+        }catch (error) {
+            console.error('Error executing command:', error);
+            _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${(error as Error).message} `});
+        } finally {
+            await fs.rm(templateFile);
+        }
     })
 }

@@ -1,14 +1,15 @@
 import require$$1$2, { BrowserWindow, app as app$1, ipcMain as ipcMain$1, dialog, protocol } from "electron";
 import path$6 from "node:path";
 import { fileURLToPath } from "node:url";
-import path$7 from "path";
-import require$$1$1 from "util";
+import require$$0$1 from "path";
+import require$$1$1, { promisify } from "util";
 import require$$0 from "fs";
 import require$$3$2 from "crypto";
 import require$$4 from "assert";
 import require$$5 from "events";
 import require$$1 from "os";
 import fs$3 from "fs/promises";
+import { exec } from "child_process";
 const __filename$1 = fileURLToPath(import.meta.url);
 const __dirname = path$6.dirname(__filename$1);
 const __approot = path$6.join(__dirname, "..");
@@ -26,6 +27,7 @@ const RENDERER_DIST = path$6.join(__approot, "dist");
 const VITE_PUBLIC = VITE_DEV_SERVER_URL ? path$6.join(__approot, "public") : RENDERER_DIST;
 const TOOL_DIR_DEV_PATH = path$6.join(__approot, "import", "Tools");
 const THEME_DIR_DEV_PATH = path$6.join(__approot, "import", "Theme");
+const __emulator = path$6.join(VITE_PUBLIC, "astools_emulator.py");
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -226,7 +228,7 @@ var pLocate$1 = (iterable, tester, opts) => {
   return Promise.all(items2.map((el) => checkLimit(finder, el))).then(() => {
   }).catch((err) => err instanceof EndError ? err.value : Promise.reject(err));
 };
-const path$5 = path$7;
+const path$5 = require$$0$1;
 const pathExists = pathExistsExports;
 const pLocate = pLocate$1;
 locatePath$1.exports = (iterable, options) => {
@@ -246,7 +248,7 @@ locatePath$1.exports.sync = (iterable, options) => {
   }
 };
 var locatePathExports = locatePath$1.exports;
-const path$4 = path$7;
+const path$4 = require$$0$1;
 const locatePath = locatePathExports;
 findUp$1.exports = (filename, opts = {}) => {
   const startDir = path$4.resolve(opts.cwd || "");
@@ -287,7 +289,7 @@ pkgUp.exports = async ({ cwd } = {}) => findUp("package.json", { cwd });
 pkgUp.exports.sync = ({ cwd } = {}) => findUp.sync("package.json", { cwd });
 var pkgUpExports = pkgUp.exports;
 var envPaths$1 = { exports: {} };
-const path$3 = path$7;
+const path$3 = require$$0$1;
 const os = require$$1;
 const homedir = os.homedir();
 const tmpdir = os.tmpdir();
@@ -598,7 +600,7 @@ const Scheduler = {
 scheduler.default = Scheduler;
 var temp = {};
 Object.defineProperty(temp, "__esModule", { value: true });
-const path$2 = path$7;
+const path$2 = require$$0$1;
 const consts_1$1 = consts;
 const fs_1$1 = fs$1;
 const Temp = {
@@ -647,7 +649,7 @@ process.on("exit", Temp.purgeSyncAll);
 temp.default = Temp;
 Object.defineProperty(dist$1, "__esModule", { value: true });
 dist$1.writeFileSync = dist$1.writeFile = dist$1.readFileSync = dist$1.readFile = void 0;
-const path$1 = path$7;
+const path$1 = require$$0$1;
 const consts_1 = consts;
 const fs_1 = fs$1;
 const lang_1 = lang;
@@ -14396,7 +14398,7 @@ var onetimeExports = onetime$1.exports;
   Object.defineProperty(exports, "__esModule", { value: true });
   const util_12 = require$$1$1;
   const fs2 = require$$0;
-  const path2 = path$7;
+  const path2 = require$$0$1;
   const crypto = require$$3$2;
   const assert = require$$4;
   const events_1 = require$$5;
@@ -14837,7 +14839,7 @@ var onetimeExports = onetime$1.exports;
   module.exports.default = Conf2;
 })(source, source.exports);
 var sourceExports = source.exports;
-const path = path$7;
+const path = require$$0$1;
 const { app, ipcMain, ipcRenderer, shell } = require$$1$2;
 const Conf = sourceExports;
 let isInitialized = false;
@@ -14903,7 +14905,7 @@ const store$b = new Store();
 let winMain = null;
 function createMainWindow() {
   winMain = new BrowserWindow({
-    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    icon: path$6.join(VITE_PUBLIC, "logoAST.png"),
     show: false,
     frame: false,
     webPreferences: {
@@ -14973,7 +14975,7 @@ const store$a = new Store();
 let winSettings = null;
 function createSettingsWindow() {
   winSettings = new BrowserWindow({
-    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    icon: path$6.join(VITE_PUBLIC, "logoAST.png"),
     show: false,
     frame: false,
     title: "settings",
@@ -15007,7 +15009,7 @@ const store$9 = new Store();
 let winDev = null;
 function createDevWindow() {
   winDev = new BrowserWindow({
-    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    icon: path$6.join(VITE_PUBLIC, "logoAST.png"),
     show: false,
     frame: false,
     title: "dev",
@@ -15041,7 +15043,7 @@ const store$8 = new Store();
 let winAddFolder = null;
 function createAddFoldersWindow() {
   winAddFolder = new BrowserWindow({
-    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    icon: path$6.join(VITE_PUBLIC, "logoAST.png"),
     show: false,
     frame: false,
     title: "Add folder",
@@ -15211,7 +15213,7 @@ const store$2 = new Store();
 let winTool = null;
 function createToolWindow(toolId) {
   winTool = new BrowserWindow({
-    icon: path$6.join(VITE_PUBLIC, "electron-vite.svg"),
+    icon: path$6.join(VITE_PUBLIC, "logoAST.png"),
     show: false,
     frame: false,
     title: toolId,
@@ -15251,8 +15253,8 @@ function toolsController() {
       const folders = await fs$3.readdir(toolsDir, { withFileTypes: true });
       for (const entry of folders) {
         if (entry.isDirectory()) {
-          const ToolDirPath = path$7.join(toolsDir, entry.name);
-          const ToolInfoPath = path$7.join(ToolDirPath, "info.json");
+          const ToolDirPath = require$$0$1.join(toolsDir, entry.name);
+          const ToolInfoPath = require$$0$1.join(ToolDirPath, "info.json");
           if (await fs$3.access(ToolInfoPath).then(() => true).catch(() => false)) {
             const infoData = await fs$3.readFile(ToolInfoPath, "utf-8");
             const info = JSON.parse(infoData);
@@ -15262,8 +15264,8 @@ function toolsController() {
               Tags: info.tags || [],
               Description: info.description || "",
               Autor: info.author || "unknown",
-              IconUrl: path$7.join(ToolDirPath, "icon.png"),
-              CoverUrl: path$7.join(ToolDirPath, "cover.png"),
+              IconUrl: require$$0$1.join(ToolDirPath, "icon.png"),
+              CoverUrl: require$$0$1.join(ToolDirPath, "cover.png"),
               language: info.language,
               entry_file: info.entry_file
             });
@@ -15310,7 +15312,7 @@ function toolsController() {
     createToolWindow(toolID);
   });
   ipcMain$1.handle("get-tool-template", async (_event, toolID) => {
-    const toolTemplatePath = path$7.join(toolsDir, toolID, "template.json");
+    const toolTemplatePath = require$$0$1.join(toolsDir, toolID, "template.json");
     if (await fs$3.access(toolTemplatePath).then(() => true).catch(() => false)) {
       const templateData = await fs$3.readFile(toolTemplatePath, "utf-8");
       return templateData;
@@ -15318,22 +15320,26 @@ function toolsController() {
     return null;
   });
   ipcMain$1.handle("run-tool-process", async (_event, toolID, toolData) => {
-    const templateFile = path$7.join(toolsDir, toolID, "timed.json");
-    const toolExe = path$7.join(toolsDir, toolID, `${toolID}.exe`);
+    const templateFile = require$$0$1.join(toolsDir, toolID, "timed.json");
     const jsonData = JSON.stringify(toolData, null, 2);
     await fs$3.writeFile(templateFile, jsonData, "utf-8");
-    const { execFile } = await import("child_process");
-    execFile(toolExe, [], (error2, stdout, stderr) => {
-      if (error2) {
-        console.error(`Error executing tool: ${error2.message}`);
-        _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${error2.message}` });
+    const command = `python "${__emulator}" --path ${VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : toolsDir} --tool ${toolID}`;
+    const execPromise = promisify(exec);
+    try {
+      const { stdout, stderr } = await execPromise(command);
+      if (stderr) {
+        console.error(`Error executing tool: ${stderr}`);
+        _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${stderr} ` });
       } else {
         console.log(`Tool output: ${stdout}`);
-        console.error(`Tool stderr: ${stderr}`);
         _event.sender.send("run-tool-answer", { succed: true, message: stdout });
       }
-    });
-    await fs$3.rm(templateFile);
+    } catch (error2) {
+      console.error("Error executing command:", error2);
+      _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${error2.message} ` });
+    } finally {
+      await fs$3.rm(templateFile);
+    }
   });
 }
 const store = new Store();

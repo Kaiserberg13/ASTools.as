@@ -54,7 +54,6 @@ export const ToolWindow = () => {
                             <div className="tool-window">
                                 <div className="tool-content">
                                     { template && renderTemplate(template, toolData, setFieldValue) }
-                                    <pre>{JSON.stringify(toolData, null, 2)}</pre>
                                     { answer && (
                                         <div className="answer">
                                             <h5>{answer.succed? "Result" : "Error"}:</h5>

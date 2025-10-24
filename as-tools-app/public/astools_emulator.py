@@ -4,6 +4,8 @@ import sys
 import subprocess
 import argparse
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 # Добавляем корень проекта в sys.path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(BASE_DIR)
@@ -44,7 +46,7 @@ def run_tool(tool_name, tools_dir):
         log(f"[x] timed.json not found: {timed_path}")
         return
 
-    log(f"→ Running {tool_name} ({lang})")
+    log(f"-> Running {tool_name} ({lang})")
 
     try:
         if lang == "python":

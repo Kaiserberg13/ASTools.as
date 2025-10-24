@@ -8,7 +8,7 @@ export let winTool: BrowserWindow | null = null;
 
 export function createToolWindow(toolId: string) {
     winTool = new BrowserWindow({
-        icon: path.join(VITE_PUBLIC, 'electron-vite.svg'),
+        icon: path.join(VITE_PUBLIC, 'logoAST.png'),
         show: false,
         frame: false,
         title: toolId,

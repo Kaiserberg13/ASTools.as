@@ -23,6 +23,8 @@ export const VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(__approot, 'public') 
 export const TOOL_DIR_DEV_PATH = path.join(__approot, "import", "Tools");
 export const THEME_DIR_DEV_PATH = path.join(__approot, "import", "Theme");
 
+export const __emulator = path.join(VITE_PUBLIC, "astools_emulator.py");
+
 export class DevView {
     __filename: string = __filename;
     __dirname: string = __dirname;

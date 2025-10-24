@@ -24,8 +24,8 @@ const CREATE_FOLDER_WINDOW_DEV_URL = "http://localhost:3000/#/add-folder";
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 const RENDERER_DIST = path$6.join(__approot, "dist");
 const VITE_PUBLIC = VITE_DEV_SERVER_URL ? path$6.join(__approot, "public") : RENDERER_DIST;
-const TOOL_DIR_DEV_PATH = path$6.join(VITE_PUBLIC, "Tools");
-const THEME_DIR_DEV_PATH = path$6.join(VITE_PUBLIC, "Theme");
+const TOOL_DIR_DEV_PATH = path$6.join(__approot, "import", "Tools");
+const THEME_DIR_DEV_PATH = path$6.join(__approot, "import", "Theme");
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -15263,7 +15263,9 @@ function toolsController() {
               Description: info.description || "",
               Autor: info.author || "unknown",
               IconUrl: path$7.join(ToolDirPath, "icon.png"),
-              CoverUrl: path$7.join(ToolDirPath, "cover.png")
+              CoverUrl: path$7.join(ToolDirPath, "cover.png"),
+              language: info.language,
+              entry_file: info.entry_file
             });
           }
         }
@@ -15278,14 +15280,30 @@ function toolsController() {
     if (!folders || folders.length === 0) return;
     const folder = folders.find((f) => f.Label === folderName);
     const tool = tools.find((t2) => t2.Id === idTool);
-    if (!tool || !folder) return;
-    folder.Tools = folder.Tools || [];
+    if (!tool || !folder || !folder.Tools) return;
     if (!folder.Tools.some((t2) => t2.Id === idTool)) {
       folder.Tools.push(tool);
     }
     const all_tags = folder.Tools.flatMap((t2) => t2.Tags || []);
     folder.Filters = Array.from(new Set(all_tags));
     store$1.set("folders", folders);
+    winMain == null ? void 0 : winMain.webContents.send("update-folders", store$1.get("folders"));
+  });
+  ipcMain$1.on("remove-tool-from-folder", (_event, idTool, folderName) => {
+    console.log("remove tool");
+    const folders = store$1.get("folders") || [];
+    if (!folders || folders.length === 0) return;
+    const folder = folders.find((f) => f.Label === folderName);
+    console.log("folder found:", folder);
+    if (!folder || !folder.Tools) return;
+    console.log("folder.Tools before:", folder.Tools);
+    const newTools = folder.Tools.filter((t2) => t2.Id !== idTool);
+    console.log("folder.Tools after filter:", newTools);
+    folder.Tools = newTools;
+    const all_tags = folder.Tools.flatMap((t2) => t2.Tags || []);
+    folder.Filters = Array.from(new Set(all_tags));
+    store$1.set("folders", folders);
+    console.log("update folder");
     winMain == null ? void 0 : winMain.webContents.send("update-folders", store$1.get("folders"));
   });
   ipcMain$1.on("run-tool", async (_event, toolID) => {

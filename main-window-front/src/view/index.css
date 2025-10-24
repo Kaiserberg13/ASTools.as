@@ -63,6 +63,29 @@ input::placeholder {
     color: var(--text-color-description);
 }
 
+select {
+    appearance: none;
+    border: var(--outline-color) 1px solid;
+    border-radius: 4px;
+    background: var(--item-color-primary);
+    font-family: var(--text-family);
+    font-size: 14px;
+    color: var(--text-color-primary);
+    padding: 4px 8px;
+}
+select:focus {
+    outline: none;
+    background: var(--item-color-hover);
+}
+select option {
+    color: var(--text-color-primary);
+    background-color: var(--item-color-primary);
+}
+select option:hover {
+    color: var(--text-color-on-accent);
+    background-color: var(--active-color);
+}
+
 p{
     margin: 0;
     padding: 0;

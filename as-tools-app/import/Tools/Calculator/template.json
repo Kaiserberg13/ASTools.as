@@ -1,0 +1,29 @@
+[
+  {
+    "category_text": "Основные параметры"
+  },
+  {
+    "type": "int",
+    "name": "Number1",
+    "text": "Первое число"
+  },
+  {
+    "type": "int",
+    "name": "Number2",
+    "text": "Второе число"
+  },
+  {
+    "type": "select",
+    "name": "Operation",
+    "text": "Операция",
+    "options": ["+", "-", "*", "/"]
+  },
+  {
+    "category_text": "Дополнительно"
+  },
+  {
+    "type": "bool",
+    "name": "ShowSteps",
+    "text": "Показать подробности вычислений"
+  }
+]

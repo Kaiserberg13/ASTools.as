@@ -1,12 +1,14 @@
 import './Folder.css';
 import { useFolderState } from '../../../controllers/FolderState';
 import { contextMenuToolPopupController } from '../../../controllers/contextMenu';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FoldersContext } from '../../../controllers/FoldersController';
+import { toolController } from '../../../controllers/ToolRunController';
 
 const FolderPage: React.FC = ()  => {
     const { name } = useParams<{name: string}>();
-    const { getFolder, deleteFolder, getAllFolders, moveToolToFolder } = FoldersContext();
+    const { runTool } = toolController();
+    const { getFolder, deleteFolder, getAllFolders, moveToolToFolder, removeToolFromFolder } = FoldersContext();
     const { filters, selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolder(name as string));
     const { menuPos, menuRef, menuVisible, subMenuVisible, menuTool, setSubMenuVisible, setMenuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
 
@@ -17,6 +19,22 @@ const FolderPage: React.FC = ()  => {
     const moveTool = (toolId: string | undefined, folderLabel: string) => {
         if(!toolId) return;
         moveToolToFolder(toolId, folderLabel);
+        setSubMenuVisible(false);
+        setMenuVisible(false);
+    }
+
+    const removeTool = (toolId: string | undefined, folderLabel: string | undefined) => {
+        console.log(toolId, folderLabel)
+        if(!toolId || !folderLabel) return;
+        console.log("true")
+        removeToolFromFolder(toolId, folderLabel);
+        setSubMenuVisible(false);
+        setMenuVisible(false);
+    }
+
+    const toolRun = (toolId: string | undefined) => {
+        if(!toolId) return;
+        runTool(toolId);
         setSubMenuVisible(false);
         setMenuVisible(false);
     }
@@ -84,10 +102,10 @@ const FolderPage: React.FC = ()  => {
                             left: menuPos.x,
                         }}
                     >
-                        <button className="submenu-item" onClick={() => handleOptionClick('Run')}>Run</button>
-                        <button className="submenu-item" onClick={() => handleOptionClick('Details')}>Details</button>
+                        <button className="submenu-item" onClick={() => toolRun(menuTool?.Id)}>Run</button>
+                        <Link className="submenu-item" to={`/tool/Main/${menuTool?.Autor}/${menuTool?.Name}`}>Details</Link>
                         <hr />
-                        <button className="submenu-item" onClick={() => handleOptionClick('RemoveFromFolder')}>Remove from folder</button>
+                        <button className="submenu-item" onClick={() => removeTool(menuTool?.Id, name)}>Remove from folder</button>
                         {getAllFolders().length !== 0 && (
                             <>
                                 <hr />

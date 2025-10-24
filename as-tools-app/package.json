@@ -20,13 +20,18 @@
     },
     "extraFiles": [
       {
-        "from": "./public/Tools",
+        "from": "./import/Tools",
         "to": "Tools",
         "filter": ["**/*"]
       },
       {
-        "from": "./public/Theme",
+        "from": "./import/Theme",
         "to": "Theme",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "./import/Guides",
+        "to": "Guides",
         "filter": ["**/*"]
       }
     ]

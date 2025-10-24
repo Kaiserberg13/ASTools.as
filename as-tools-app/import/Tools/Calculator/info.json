@@ -1,0 +1,8 @@
+{
+  "name": "Calculator",
+  "description": "Basic calculator functions for addition, subtraction, multiplication, and division.",
+  "language": "python",
+  "entry_file": "tool.py",
+  "tags": ["utility", "math", "numbers"],
+  "requirements": []
+}

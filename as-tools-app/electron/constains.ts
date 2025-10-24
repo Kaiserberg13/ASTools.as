@@ -20,8 +20,8 @@ export const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL'];
 export const RENDERER_DIST = path.join(__approot, 'dist')
 export const VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(__approot, 'public') : RENDERER_DIST;
 
-export const TOOL_DIR_DEV_PATH = path.join(VITE_PUBLIC, "Tools");
-export const THEME_DIR_DEV_PATH = path.join(VITE_PUBLIC, "Theme");
+export const TOOL_DIR_DEV_PATH = path.join(__approot, "import", "Tools");
+export const THEME_DIR_DEV_PATH = path.join(__approot, "import", "Theme");
 
 export class DevView {
     __filename: string = __filename;

@@ -3,7 +3,8 @@ import { ToolsService } from "../services/ToolsServices";
 
 export type TemplateField = {
   category_text?: string;
-  type?: "bool" | "str" | "int" | "float";
+  type?: "bool" | "str" | "int" | "float" | "select";
+  options?: string[];
   name?: string;
   text?: string;
   default?: any;
@@ -54,6 +55,8 @@ export function toolWindowController(toolId: string | undefined) {
                             initialData[field.name] = field.default ?? '';
                         } else if(field.name && field.type === "str") {
                             initialData[field.name] = field.default ?? "";
+                        }else if(field.name && field.type === "select") {
+                            initialData[field.name] = field.default ?? (field.options as string[])[0] ?? '';
                         }
                     }
                     setToolData(initialData);

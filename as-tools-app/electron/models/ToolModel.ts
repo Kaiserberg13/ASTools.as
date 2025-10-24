@@ -6,4 +6,6 @@ export interface ToolModel {
     Autor: string;
     IconUrl: string;
     CoverUrl: string;
+    language: string;
+    entry_file: string;
 }

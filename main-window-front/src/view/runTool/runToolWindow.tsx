@@ -54,6 +54,7 @@ export const ToolWindow = () => {
                             <div className="tool-window">
                                 <div className="tool-content">
                                     { template && renderTemplate(template, toolData, setFieldValue) }
+                                    <pre>{JSON.stringify(toolData, null, 2)}</pre>
                                     { answer && (
                                         <div className="answer">
                                             <h5>{answer.succed? "Result" : "Error"}:</h5>
@@ -153,6 +154,17 @@ function renderTemplate(template: TemplateField[], toolData: Record<string, any>
                         <input disabled={disabled}  type="number" placeholder={value.text || ""} value={toolData[value.name as string] ?? ""} onChange={e => setFieldValue(value.name, parseInt(e.target.value))}/>
                     </div>
                 );
+            } else if (value.type === "select") {
+                const disabled = value.condition ? !evaluateCondition(value.condition, toolData) : false;
+                output.push(
+                    <div key={key} className="template-row">
+                        <select disabled={disabled} value={toolData[value.name as string] ?? null} onChange={e => setFieldValue(value.name, e.target.value)}>
+                            {value.options?.map(type => (
+                                <option key={type} value={type}>{type}</option>
+                            ))}
+                        </select>
+                    </div>
+                )
             }
         }
     });

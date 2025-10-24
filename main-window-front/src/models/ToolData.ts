@@ -7,4 +7,6 @@ export interface ToolData {
     default?: string | boolean;
     icon?: string;
     condition?: string;
+    language: string;
+    entry_file: string;
 }

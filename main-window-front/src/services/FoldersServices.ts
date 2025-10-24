@@ -16,6 +16,10 @@ export class FolderService {
         window.ipcRenderer.send("move-tool-to-folder", toolId, folderLabel);
     }
 
+    removeToolFormFolder(toolId: string, folderLabel: string): void {
+        window.ipcRenderer.send("remove-tool-from-folder", toolId, folderLabel);
+    }
+
     createFolder(folder: FolderModel): void {
         window.ipcRenderer.send("create-folder", folder);
     }

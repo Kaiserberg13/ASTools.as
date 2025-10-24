@@ -29,6 +29,10 @@ export function FoldersContext() {
         _service.moveToolToFolder(toolId, folderLabel);
     }
 
+    const removeToolFromFolder = (toolId: string, folderLabel: string) => {
+        _service.removeToolFormFolder(toolId, folderLabel);
+    }
+
     useEffect(() => {
         foldersRef.current = folders;
     }, [folders]);
@@ -66,6 +70,7 @@ export function FoldersContext() {
         deleteFolder,
         createFolder,
         getAllFolders,
-        moveToolToFolder
+        moveToolToFolder,
+        removeToolFromFolder
     }
 }

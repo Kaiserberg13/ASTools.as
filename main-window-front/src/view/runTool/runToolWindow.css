@@ -38,6 +38,9 @@
 .tool-window .tool-content .template-row input{
     flex: 1;
 }
+.tool-window .tool-content .template-row select{
+    flex: 1;
+}
 
 .tool-window .tool-content h5{
     text-align: center;

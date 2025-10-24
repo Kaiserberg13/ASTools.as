@@ -34,7 +34,9 @@ export function toolsController() {
                             Description: info.description || '',
                             Autor: info.author || "unknown",
                             IconUrl: path.join(ToolDirPath, "icon.png"),
-                            CoverUrl: path.join(ToolDirPath, "cover.png")
+                            CoverUrl: path.join(ToolDirPath, "cover.png"),
+                            language: info.language,
+                            entry_file: info.entry_file
                         });
                     }
                 }
@@ -51,9 +53,8 @@ export function toolsController() {
 
         const folder = folders.find(f => f.Label === folderName);
         const tool = tools.find(t => t.Id === idTool);
-        if (!tool || !folder) return;
+        if (!tool || !folder || !folder.Tools) return;
 
-        folder.Tools = folder.Tools || [];
         if (!folder.Tools.some(t => t.Id === idTool)) {
             folder.Tools.push(tool);
         }
@@ -65,6 +66,31 @@ export function toolsController() {
 
         winMain?.webContents.send("update-folders", store.get("folders") as FolderModel[])
     })
+
+    ipcMain.on("remove-tool-from-folder", (_event: any, idTool: string, folderName: string) => {
+        console.log("remove tool");
+        const folders: FolderModel[] = store.get("folders") as FolderModel[] || [];
+        if (!folders || folders.length === 0) return;
+
+        const folder = folders.find(f => f.Label === folderName);
+
+        console.log("folder found:", folder);
+
+        if ( !folder || !folder.Tools) return;
+
+        console.log("folder.Tools before:", folder.Tools);
+        const newTools = folder.Tools.filter(t => t.Id !== idTool);
+        console.log("folder.Tools after filter:", newTools);
+        folder.Tools = newTools;
+
+        const all_tags = folder.Tools.flatMap(t => t.Tags || []);
+        folder.Filters = Array.from(new Set(all_tags));
+
+        store.set("folders", folders);
+        console.log("update folder");
+
+        winMain?.webContents.send("update-folders", store.get("folders") as FolderModel[]);
+    });
 
     ipcMain.on("run-tool", async (_event: any, toolID: string) => {
         createToolWindow(toolID);

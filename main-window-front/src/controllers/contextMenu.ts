@@ -22,12 +22,6 @@ export function contextMenuToolPopupController() {
         }
     }, [menuVisible]);
 
-    const handleOptionClick = (option: string) => {
-        console.log('Option:', option, "for tool:", menuTool);
-        setMenuVisible(false);
-        setSubMenuVisible(false);
-    }
-
     const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>, tool: ToolModel) => {
         e.preventDefault();
         setMenuTool(tool);
@@ -41,7 +35,6 @@ export function contextMenuToolPopupController() {
         menuVisible,
         subMenuVisible,
         menuTool,
-        handleOptionClick,
         handleContextMenu,
         setSubMenuVisible,
         setMenuVisible

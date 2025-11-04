@@ -113,7 +113,7 @@ export function toolsController() {
         const jsonData = JSON.stringify(toolData, null, 2);
         await fs.writeFile(templateFile, jsonData, "utf-8");
 
-        const command = `python "${__emulator}" --path ${VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : toolsDir} --tool ${toolID}`;
+        const command = `python "${__emulator}" --path "${VITE_DEV_SERVER_URL ? TOOL_DIR_DEV_PATH : toolsDir}" --tool ${toolID}`;
 
         const execPromise = promisify(exec);
 
@@ -129,7 +129,7 @@ export function toolsController() {
             }
         }catch (error) {
             console.error('Error executing command:', error);
-            _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${(error as Error).message} `});
+            _event.sender.send("run-tool-answer", { succed: false, message: `Error executing tool: ${error} `});
         } finally {
             await fs.rm(templateFile);
         }

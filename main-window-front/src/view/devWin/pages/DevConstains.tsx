@@ -5,6 +5,7 @@ interface DevView {
     __dirname: string,
     __approot: string,
     __preloadpath: string,
+    __emulator: string,
 
     tool_dir: string,
     theme_dir: string,

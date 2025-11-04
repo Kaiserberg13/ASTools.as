@@ -10,7 +10,7 @@ const FolderPage: React.FC = ()  => {
     const { runTool } = toolController();
     const { getFolder, deleteFolder, getAllFolders, moveToolToFolder, removeToolFromFolder } = FoldersContext();
     const { filters, selectedTag, viewTools, filterdTools, setSelectedTag, setViewTools} = useFolderState(getFolder(name as string));
-    const { menuPos, menuRef, menuVisible, subMenuVisible, menuTool, setSubMenuVisible, setMenuVisible, handleContextMenu, handleOptionClick } = contextMenuToolPopupController();
+    const { menuPos, menuRef, menuVisible, subMenuVisible, menuTool, setSubMenuVisible, setMenuVisible, handleContextMenu } = contextMenuToolPopupController();
 
     const openSubMenu = () => {
         setSubMenuVisible(true);

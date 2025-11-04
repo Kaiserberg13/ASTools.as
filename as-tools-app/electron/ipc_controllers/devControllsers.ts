@@ -15,7 +15,8 @@ import {
     TOOL_WINDOW_DEV_URL,
     CREATE_FOLDER_WINDOW_DEV_URL,
     TOOL_DIR_DEV_PATH,
-    THEME_DIR_DEV_PATH
+    THEME_DIR_DEV_PATH,
+    __emulator
 } from "../constains";
 import Store from 'electron-store';
 
@@ -28,6 +29,7 @@ export function devControllers() {
             __dirname: __dirname,
             __approot: __approot,
             __preloadpath: __preloadpath,
+            __emulator: __emulator,
         
             tool_dir: tool_dir,
             theme_dir: theme_dir,

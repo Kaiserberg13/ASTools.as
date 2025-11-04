@@ -17,7 +17,7 @@
       "perMachine": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Task Nexus"
+      "shortcutName": "AS Tools"
     },
     "extraFiles": [
       {
@@ -26,13 +26,18 @@
         "filter": ["**/*"]
       },
       {
-        "from": "./import/Theme",
-        "to": "Theme",
+        "from": "./import/Themes",
+        "to": "Themes",
         "filter": ["**/*"]
       },
       {
         "from": "./import/Guides",
         "to": "Guides",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "./emulator",
+        "to": "scripts",
         "filter": ["**/*"]
       }
     ]

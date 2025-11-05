@@ -10614,7 +10614,7 @@ function PS() {
     we == null || we.webContents.send("update-theme", e), we == null || we.webContents.send("update-palette", t), we == null || we.show();
   }), we.on("closed", () => {
     we = null;
-  }), xe ? we.loadURL(Jc) : we.loadURL(`file://${fr}/index.html#/settings`);
+  }), xe ? we.loadURL(Jc) : we.loadURL(`file://${fr}/index.html#/add-folder`);
 }
 const NS = new et();
 function OS() {

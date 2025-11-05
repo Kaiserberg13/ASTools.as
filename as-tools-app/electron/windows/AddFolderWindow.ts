@@ -39,6 +39,6 @@ export function createAddFoldersWindow() {
     if (VITE_DEV_SERVER_URL) {
         winAddFolder.loadURL(CREATE_FOLDER_WINDOW_DEV_URL);
     } else {
-        winAddFolder.loadURL(`file://${RENDERER_DIST}/index.html#/settings`);
+        winAddFolder.loadURL(`file://${RENDERER_DIST}/index.html#/add-folder`);
     }
 }

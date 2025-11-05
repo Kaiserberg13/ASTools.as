@@ -72,6 +72,12 @@
 .sidebar-panel .item.active .folder-name svg{
     fill: var(--active-color);
 }
+.sidebar-panel .item .folder-name svg path{
+    fill: var(--text-color-description);
+}
+.sidebar-panel .item.active .folder-name svg path{
+    fill: var(--active-color);
+}
 
 .sidebar-panel .item .folder-name p{
     margin: 0;
